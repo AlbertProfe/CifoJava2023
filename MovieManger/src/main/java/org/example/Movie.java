@@ -15,7 +15,11 @@ public class Movie {
 
         private String title;
         private int year;
-        private List<Review> reviews;
+        private List<Review> reviews = new ArrayList<Review>();
 
+        public Movie(String title, int year) {
+                this.title = title;
+                this.year= year;
 
+        }
 }
