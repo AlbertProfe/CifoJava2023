@@ -34,6 +34,7 @@ public class AppTest {
         Review myreview = new Review(5, "Best film ever");
         reviews.add(myreview);
 
+        // explain this sentence what? for what? how?
         Movie movie = new Movie("Alien", director, 1979, reviews );
 
         String findMyComment = movie.getReviews().get(0).getComment();
