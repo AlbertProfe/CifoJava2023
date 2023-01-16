@@ -36,9 +36,10 @@ public class AppTest {
 
         Movie movie = new Movie("Alien", director, 1979, reviews );
 
-        String findmycomment = movie.getReviews().get(0).getComment();
+        String findMyComment = movie.getReviews().get(0).getComment();
 
-        assertEquals(findmycomment,"Worst film ever" );
+        assertEquals(findMyComment,"Best film ever" );
+        assertNotEquals(findMyComment,"Worst film ever" );
 
 
     }

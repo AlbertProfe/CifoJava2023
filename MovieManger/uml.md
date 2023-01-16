@@ -5,16 +5,21 @@ classDiagram
   class Movie {
     -title: String
     -reviews: List<Review>
+    -director: Director
   }
   class Critic {
     -name: String
   }
+  
+  class Director {
+    -name: String
+  }
   class Review {
-    -critic: Critic
     -rating: int
     -comment: String
   }
   Movie *-- Review
+  Movie *-- Director
   Review o-- Critic
 
 ```
