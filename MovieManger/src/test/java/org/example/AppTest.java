@@ -17,9 +17,29 @@ public class AppTest {
 
         String movieNameFake = faker.name().name();
 
+
+        Movie carlamovie = new Movie();
+
         Movie movie = new Movie (movieNameFake, 2005);
         assertEquals(movieNameFake, movie.getTitle());
         assertNotNull(movie.getReviews());
         assertTrue(movie.getReviews().isEmpty());
+    }
+
+    @Test
+    public void createReview(){
+
+        ArrayList reviews = new ArrayList<Review>();
+        Director director = new Director("Ridley Scott");
+        Review myreview = new Review(5, "Best film ever");
+        reviews.add(myreview);
+
+        Movie movie = new Movie("Alien", director, 1979, reviews );
+
+        String findmycomment = movie.getReviews().get(0).getComment();
+
+        assertEquals(findmycomment,"Worst film ever" );
+
+
     }
 }

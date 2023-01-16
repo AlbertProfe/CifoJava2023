@@ -1,6 +1,4 @@
 package org.example;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class Director {
 
-
-        private int rating;
-        private String comment;
-
+    public String name;
 }
