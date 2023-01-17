@@ -37,6 +37,8 @@ public class AppTest {
         // explain this sentence what? for what? how?
         Movie movie = new Movie("Alien", director, 1979, reviews );
 
+        // find a comment within movie to test a review
+        // from movie object get Reviews list position 0 and get comment from Review
         String findMyComment = movie.getReviews().get(0).getComment();
 
         assertEquals(findMyComment,"Best film ever" );
