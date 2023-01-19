@@ -14,6 +14,7 @@ classDiagram
   
   class Director {
     -oscars: int
+    -movies: List~Movie~
   }
   class Review {
     -rating: int

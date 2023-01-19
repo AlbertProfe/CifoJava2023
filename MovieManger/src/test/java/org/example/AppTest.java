@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AppTest {
 
     @Test
-    public void createMovie(){
+    public void testCreateMovie(){
 
         Faker faker = new Faker();
         String quote = faker.backToTheFuture().quote();
@@ -27,12 +27,14 @@ public class AppTest {
     }
 
     @Test
-    public void createReview(){
+    public void testCreateReview(){
 
         ArrayList reviews = new ArrayList<Review>();
-        Director director = new Director("Ridley Scott");
-        Review myreview = new Review(5, "Best film ever");
-        reviews.add(myreview);
+        Director director = new Director();
+        director.setName("Ridley Scott");
+        director.setOscarQty(4);
+        Review myReview = new Review(5, "Best film ever");
+        reviews.add(myReview);
 
         // explain this sentence what? for what? how?
         Movie movie = new Movie("Alien", director, 1979, reviews );
@@ -43,7 +45,36 @@ public class AppTest {
 
         assertEquals(findMyComment,"Best film ever" );
         assertNotEquals(findMyComment,"Worst film ever" );
+    }
 
+    @Test
+    public void testOneToMany(){
+        Person rscott = new Director();
+        Movie alien = new Movie();
+        Movie gladiator = new Movie();
 
+        // be careful with this error
+        // difference between compilation time and execution tim
+        // solution: casting?
+        Director rscott_director = (Director) rscott;
+        rscott_director.getMovies();
+        rscott_director.getMovies().add(alien);
+
+        Director sspilberg =  new Director();
+        sspilberg.setOscarQty(2);
+        Movie irobot = new Movie();
+        Movie et = new Movie();
+        Movie ai = new Movie();
+        Movie munich = new Movie();
+        Movie tiburon = new Movie();
+
+        sspilberg.getMovies().add(tiburon);
+        sspilberg.getMovies().add(irobot);
+        sspilberg.getMovies().add(et);
+        sspilberg.getMovies().add(ai);
+        sspilberg.getMovies().add(munich);
+
+        int qtyMoviesSpilberg = sspilberg.getMovies().size();
+        assertNotEquals( 4,qtyMoviesSpilberg );
     }
 }

@@ -1,5 +1,4 @@
 package org.example;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,10 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+public class Person {
 
-public class Critic extends Person {
-
-    private int publicationsQty;
-
-
+    public String name;
 }

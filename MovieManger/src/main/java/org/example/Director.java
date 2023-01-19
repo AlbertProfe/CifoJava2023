@@ -3,10 +3,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class Director {
+public class Director extends Person {
 
-    public String name;
+    public int oscarQty;
+    public List<Movie> movies;
+
+    public Director (){
+        this.movies = new ArrayList<Movie>();
+    }
 }
