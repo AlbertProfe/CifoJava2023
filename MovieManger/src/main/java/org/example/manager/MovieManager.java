@@ -1,16 +1,28 @@
 package org.example.manager;
 
 import org.example.Model.Movie;
+import org.example.view.UserInterface;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class MovieManager {
 
+    public static HashMap<String, Movie> movies = new HashMap<String, Movie>();
     // Static method
     public static boolean createMovie(Scanner reader) {
         boolean result = false;
+
+        String movieName = UserInterface.ask(reader, "Movie name?");
+
+        Movie newMovie = new Movie();
+        newMovie.setTitle(movieName);
+
+        movies.put(movieName, newMovie);
+        System.out.println(movies);
+
         // to-do
         // ask user for movie data: director
         // create Movie object

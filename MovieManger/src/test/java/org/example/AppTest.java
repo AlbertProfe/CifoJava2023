@@ -18,9 +18,7 @@ public class AppTest {
         Faker faker = new Faker();
         String quote = faker.backToTheFuture().quote();
         String beer = faker.beer().malt();
-
         String movieNameFake = faker.name().name();
-
 
         Movie carlamovie = new Movie();
 
