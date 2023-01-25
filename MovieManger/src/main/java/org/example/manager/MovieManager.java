@@ -1,6 +1,6 @@
 package org.example.manager;
 
-import org.example.Model.Movie;
+import org.example.model.Movie;
 import org.example.view.UserInterface;
 
 import java.util.ArrayList;
@@ -10,29 +10,26 @@ import java.util.Scanner;
 
 public class MovieManager {
 
-    public static HashMap<String, Movie> movies = new HashMap<String, Movie>();
+    public static HashMap<String, Movie> movies = new HashMap<String,Movie>();
+
     // Static method
-    public static boolean createMovie(Scanner reader) {
+    public static boolean createAndAddToStorage(Scanner reader) {
         boolean result = false;
-
-        String movieName = UserInterface.ask(reader, "Movie name?");
-
-        Movie newMovie = new Movie();
-        newMovie.setTitle(movieName);
-
-        movies.put(movieName, newMovie);
-        System.out.println(movies);
-
-        // to-do
-        // ask user for movie data: director
+        // ask user for Movie parameters
+        String movieName = UserInterface.askString(reader, "Movie name?");
+        int year = UserInterface.askInt(reader, "Movie year?");
         // create Movie object
-        // Movie newMovie = new Movie();
-        // newMovie.setDirector(XXXXXX):
-        // send new movie object to storage class
+        Movie myMovie = new Movie();
+        myMovie.setTitle(movieName);
+        //add to hashmap
+        movies.put(movieName, myMovie);
         // return result to view
         return result;
     }
-
+    // Static method
+    public static void createAndAddToDynamoDB(Scanner reader) {}
+    // Static method
+    public static void createAndAddToMongoDB(Scanner reader) {}
     // Static method
     public static boolean deleteMovie(String idMovie) {
         boolean result = false;
@@ -42,21 +39,19 @@ public class MovieManager {
         // return result
         return result;
     }
-
     // Static method
     public static boolean updateMovie(Movie movie) {
         boolean result = false;
         // to-do algorithmic to solve this method
         return result;
     }
-
     // Static method
-    public static List<Movie> getAllMovies() {
-        List<Movie> movies = new ArrayList<>();
+    public static void getAllMovies() {
+        //List<Movie> movies = new ArrayList<>();
         // to-do algorithmic to solve this method
-        return movies;
+        System.out.println(movies);
+        //return movies;
     }
-
     // Static method
     public static List<Movie> findMovie(String title) {
         List<Movie> movies = new ArrayList<>();

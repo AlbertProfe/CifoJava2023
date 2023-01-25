@@ -1,5 +1,4 @@
-package org.example.Model;
-
+package org.example.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,10 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class Critic extends Person {
 
+    private int publicationsQty;
 
-        private int rating;
-        private String comment;
 
 }

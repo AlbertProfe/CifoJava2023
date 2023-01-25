@@ -1,10 +1,10 @@
 package org.example;
 
 import com.github.javafaker.Faker;
-import org.example.Model.Director;
-import org.example.Model.Movie;
-import org.example.Model.Person;
-import org.example.Model.Review;
+import org.example.model.Director;
+import org.example.model.Movie;
+import org.example.model.Person;
+import org.example.model.Review;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
