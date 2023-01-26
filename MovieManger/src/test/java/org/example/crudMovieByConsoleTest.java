@@ -23,14 +23,36 @@ public class crudMovieByConsoleTest {
         UserInterface.start();
 
         // get movieName from movies
-        // go MovieManger and access to movies hashmap,
-        // once in hashmap get movie by key "Rocky"
-        //  in movie getTitle to obtain the title
+        // from MovieManger access to movies Hashmap,
+        // once in Hashmap get movie object value by key "Rocky"
+        // in movie getTitle to obtain the title
         // this line will help to test my use-case
         String movieName = MovieManager.movies.get("Rocky5").getTitle();
         //System.out.println(movieName);
 
         assertEquals("Rocky5", movieName);
+
+        // Should we delete Rocky movie just created to be tested?
+        //MovieManager.movies.remove("Rocky");
+    }
+    @Test
+    public void startDeleteTest(){
+
+        String input = "Add\nRocky5\n1982\nGetAll\nDelete\nRocky5\nQuit\n";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        UserInterface.start();
+
+        // get movieName from movies
+        // from MovieManger access to movies Hashmap,
+        // once in Hashmap get movie object value by key "Rocky"
+        // in movie getTitle to obtain the title
+        // this line will help to test my use-case
+        Movie movie = MovieManager.movies.getOrDefault("Rocky5",null);
+        //System.out.println(movieName);
+
+        assertEquals(null, movie);
 
         // Should we delete Rocky movie just created to be tested?
         //MovieManager.movies.remove("Rocky");

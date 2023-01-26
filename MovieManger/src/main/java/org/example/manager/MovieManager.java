@@ -12,8 +12,7 @@ public class MovieManager {
     public static HashMap<String, Movie> movies = new HashMap<String,Movie>();
 
     // Static method
-    public static boolean createAndAddToStorage(Scanner reader) {
-        boolean result = false;
+    public static void createAndAddToStorage(Scanner reader) {
         // ask user for Movie parameters
         String movieName = InterfaceUtils.askString(reader, "Movie name?");
         int movieYear = InterfaceUtils.askInt(reader, "Movie year?");
@@ -25,30 +24,25 @@ public class MovieManager {
         //add to hashmap
         movies.put(movieName, myMovie);
         // return result to view
-        return result;
+        System.out.println("Movie added ...");
     }
 
     // Static method
-    //public static void createAndAddToDynamoDB(Scanner reader) {}
+    public static void deleteMovie(Scanner reader) {
 
-    // Static method
-    //public static void createAndAddToMongoDB(Scanner reader) {}
-
-    // Static method
-    public static boolean deleteMovie(String idMovie) {
-        boolean result = false;
-        // to-do algorithmic to solve this method
-        // if idMovie exists in storage/hashMap
-        // hashmap.remove(movie)
-        // return result
-        return result;
+        String titleToDelete =  InterfaceUtils.askString(reader,"Which one to delete?");
+        movies.remove(titleToDelete);
+        System.out.println("Movie deleted ...");
     }
 
     // Static method
-    public static boolean updateMovie(Movie movie) {
-        boolean result = false;
-        // to-do algorithmic to solve this method
-        return result;
+    public static void updateMovie(Scanner reader) {
+        // ask which movie to update
+        // now you got Title
+        // find movie in hashmap
+        // if it exists > app will ask  user which field wants to update
+        // create movie object
+        // once we got new object movie, movies.replace
     }
 
     // Static method
@@ -60,10 +54,10 @@ public class MovieManager {
     }
 
     // Static method
-    public static List<Movie> findMovie(String title) {
-        List<Movie> movies = new ArrayList<>();
-        // to-do algorithmic to solve this method
-        return movies;
+    public static void findMovie(Scanner reader) {
+        String titleToFind =  InterfaceUtils.askString(reader,"Which one to find?");
+        Movie movieFound = movies.get(titleToFind);
+        System.out.println("Movie: " + movieFound);
     }
 
 }

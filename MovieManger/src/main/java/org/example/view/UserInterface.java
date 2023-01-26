@@ -24,11 +24,11 @@ public class UserInterface {
 
             } else if (command.equals("Delete")) {
                 System.out.println("We are going to delete ... wait");
-                //delete(scanner,movieManager);
+                MovieManager.deleteMovie(reader);
 
             } else if (command.equals("GetOne")) {
                 System.out.println("We are going to search ... wait");
-                //get(scanner,movieManager);
+                MovieManager.findMovie(reader);
 
             } else if (command.equals("Update")) {
                 System.out.println("We are going to update ... wait");
