@@ -5,9 +5,6 @@ import java.util.Scanner;
 public class InterfaceUtils {
 
     public static String askString (Scanner reader, String question){
-        // to-do
-        // this static method will go
-        // to a new DOMAIN: utils
         System.out.println(question);
         String result = reader.nextLine();
 

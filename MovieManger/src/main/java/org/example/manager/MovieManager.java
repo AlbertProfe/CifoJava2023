@@ -2,9 +2,7 @@ package org.example.manager;
 
 import org.example.model.Movie;
 import org.example.utils.InterfaceUtils;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class MovieManager {
@@ -20,7 +18,6 @@ public class MovieManager {
         Movie myMovie = new Movie();
         myMovie.setTitle(movieName);
         myMovie.setYear(movieYear);
-
         //add to hashmap
         movies.put(movieName, myMovie);
         // return result to view
@@ -29,34 +26,43 @@ public class MovieManager {
 
     // Static method
     public static void deleteMovie(Scanner reader) {
-
+        // ask user for Movie to delete
         String titleToDelete =  InterfaceUtils.askString(reader,"Which one to delete?");
+        // remove object from movies
         movies.remove(titleToDelete);
         System.out.println("Movie deleted ...");
     }
 
     // Static method
     public static void updateMovie(Scanner reader) {
-        // ask which movie to update
-        // now you got Title
-        // find movie in hashmap
-        // if it exists > app will ask  user which field wants to update
-        // create movie object
-        // once we got new object movie, movies.replace
+        // copy/paste from findMovie
+        String titleToUpdate =  InterfaceUtils.askString(reader,"Which one to update?");
+        Movie movieFound = movies.get(titleToUpdate);
+        System.out.println("Movie: " + movieFound);
+        // copy/paste from createAndAddToStorage
+        int movieYear = InterfaceUtils.askInt(reader, "Movie year?");
+        // let s update
+        Movie movieToUpdate = new Movie();
+        movieToUpdate.setTitle(movieFound.getTitle());
+        movieToUpdate.setYear(movieYear);
+        // let s replace on movies hashmap
+        movies.replace(movieFound.getTitle(), movieToUpdate);
+        System.out.println("Movie updated ...");
     }
 
     // Static method
     public static void getAllMoviesFromStorage() {
-        //List<Movie> movies = new ArrayList<>();
-        // to-do algorithmic to solve this method
+        // print all movies
         System.out.println(movies);
-        //return movies;
     }
 
     // Static method
     public static void findMovie(Scanner reader) {
+        // ask user for movie
         String titleToFind =  InterfaceUtils.askString(reader,"Which one to find?");
+        // get movie from movies by key
         Movie movieFound = movies.get(titleToFind);
+        // print movie
         System.out.println("Movie: " + movieFound);
     }
 

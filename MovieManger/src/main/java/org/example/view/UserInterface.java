@@ -7,11 +7,10 @@ import static org.example.utils.InterfaceUtils.askString;
 
 public class UserInterface {
 
-    //MovieManager movieManager = new MovieManager();
     public static void start() {
         Scanner reader = new Scanner(System.in);
         while (true) {
-            //menu();
+            menu();
             // ask user what option choose
             // call ask static method and send two parameters
             // reader to object and string option
@@ -32,7 +31,7 @@ public class UserInterface {
 
             } else if (command.equals("Update")) {
                 System.out.println("We are going to update ... wait");
-                //update(scanner,movieManager);
+                MovieManager.updateMovie(reader);
 
             } else if (command.equals("GetAll")) {
                 System.out.println("We are going to show all films ... wait");

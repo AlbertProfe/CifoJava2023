@@ -4,7 +4,6 @@ import org.example.manager.MovieManager;
 import org.example.model.Movie;
 import org.example.view.UserInterface;
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Scanner;
@@ -38,7 +37,7 @@ public class crudMovieByConsoleTest {
     @Test
     public void startDeleteTest(){
 
-        String input = "Add\nRocky5\n1982\nGetAll\nDelete\nRocky5\nQuit\n";
+        String input = "Add\nRocky\n1982\nGetAll\nDelete\nRocky\nQuit\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
@@ -47,9 +46,8 @@ public class crudMovieByConsoleTest {
         // get movieName from movies
         // from MovieManger access to movies Hashmap,
         // once in Hashmap get movie object value by key "Rocky"
-        // in movie getTitle to obtain the title
         // this line will help to test my use-case
-        Movie movie = MovieManager.movies.getOrDefault("Rocky5",null);
+        Movie movie = MovieManager.movies.getOrDefault("Rocky",null);
         //System.out.println(movieName);
 
         assertEquals(null, movie);
