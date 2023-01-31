@@ -1,6 +1,6 @@
 package org.example.view;
 
-import org.example.manager.MovieManager;
+import org.example.manager.BookManager;
 import java.util.Scanner;
 import static org.example.utils.InterfaceUtils.askString;
 
@@ -18,23 +18,23 @@ public class UserInterface {
                 break;
             } else if (command.equals("Add")) {
                 System.out.println("Add Movie to database:");
-                MovieManager.createAndAddToStorage(reader);
+                BookManager.createAndAddToStorage(reader);
 
             } else if (command.equals("Delete")) {
                 System.out.println("We are going to delete ... wait");
-                MovieManager.deleteMovie(reader);
+                BookManager.deleteMovie(reader);
 
             } else if (command.equals("GetOne")) {
                 System.out.println("We are going to search ... wait");
-                MovieManager.findMovie(reader);
+                BookManager.findMovie(reader);
 
             } else if (command.equals("Update")) {
                 System.out.println("We are going to update ... wait");
-                MovieManager.updateMovie(reader);
+                BookManager.updateMovie(reader);
 
             } else if (command.equals("GetAll")) {
                 System.out.println("We are going to show all films ... wait");
-                MovieManager.getAllMoviesFromStorage();
+                BookManager.getAllMoviesFromStorage();
 
             } else {
                 System.out.println("Unknown command!");
