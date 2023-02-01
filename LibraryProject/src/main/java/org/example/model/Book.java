@@ -12,6 +12,7 @@ import java.util.List;
 public class Book {
 
         private String title;
+        private String ISBN;
         private Author author;
         private int year;
         private List<Borrow> borrows;

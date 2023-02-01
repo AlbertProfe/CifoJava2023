@@ -1,9 +1,11 @@
 package org.example;
 
 import com.github.javafaker.Faker;
+import org.example.manager.UserManager;
 import org.example.model.Author;
 import org.example.model.Book;
 import org.example.model.Person;
+import org.example.model.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,22 +13,17 @@ import static org.junit.jupiter.api.Assertions.*;
 public class createObjectsTest {
 
     @Test
-    public void testCreateMovie(){
+    public void testCreateBook(){
 
         Faker faker = new Faker();
-        String quote = faker.backToTheFuture().quote();
-        String beer = faker.beer().malt();
-        String movieNameFake = faker.name().name();
+        String bookTitle = faker.book().title();
 
-        Book carlamovie = new Book();
+        Book newbook = new Book();
 
-        Book book = new Book(movieNameFake, 2005);
-        assertEquals(movieNameFake, book.getTitle());
+        Book book = new Book(bookTitle, 2005);
+        assertEquals(bookTitle, book.getTitle());
 
     }
-
-
-
 
     @Test
     public void testOneToMany(){
@@ -57,5 +54,12 @@ public class createObjectsTest {
 
         int qtyMoviesSpilberg = sspilberg.getBooks().size();
         assertNotEquals( 4,qtyMoviesSpilberg );
+    }
+
+    @Test
+    public void createFakerUsersTest(){
+
+        UserManager.createUsers(1000);
+
     }
 }

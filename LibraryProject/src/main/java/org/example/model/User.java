@@ -11,5 +11,7 @@ import java.util.List;
 public class User extends Person{
 
     private String userId;
+    private String address;
+    private int age;
     private List<Borrow> borrows;
 }

@@ -25,7 +25,7 @@ public class crudBookByConsoleTest {
         // once in Hashmap get movie object value by key "Rocky"
         // in movie getTitle to obtain the title
         // this line will help to test my use-case
-        String movieName = BookManager.movies.get("Rocky5").getTitle();
+        String movieName = BookManager.books.get("Rocky5").getTitle();
         //System.out.println(movieName);
 
         assertEquals("Rocky5", movieName);
@@ -46,7 +46,7 @@ public class crudBookByConsoleTest {
         // from MovieManger access to movies Hashmap,
         // once in Hashmap get movie object value by key "Rocky"
         // this line will help to test my use-case
-        Book book = BookManager.movies.getOrDefault("Rocky",null);
+        Book book = BookManager.books.getOrDefault("Rocky",null);
         //System.out.println(movieName);
 
         assertEquals(null, book);
@@ -65,7 +65,7 @@ public class crudBookByConsoleTest {
 
         BookManager.createAndAddToStorage(reader);
 
-        String movieName = BookManager.movies.get("Rocky").getTitle();
+        String movieName = BookManager.books.get("Rocky").getTitle();
         //System.out.println(movieName);
 
         assertEquals("Rocky", movieName);

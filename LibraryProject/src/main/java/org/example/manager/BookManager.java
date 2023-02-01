@@ -7,19 +7,19 @@ import java.util.Scanner;
 
 public class BookManager {
 
-    public static HashMap<String, Book> movies = new HashMap<String, Book>();
+    public static HashMap<String, Book> books = new HashMap<String, Book>();
 
     // Static method
     public static void createAndAddToStorage(Scanner reader) {
         // ask user for Movie parameters
-        String movieName = InterfaceUtils.askString(reader, "Movie name?");
-        int movieYear = InterfaceUtils.askInt(reader, "Movie year?");
+        String bookTitle = InterfaceUtils.askString(reader, "Book name?");
+        int bookYear = InterfaceUtils.askInt(reader, "Book year?");
         // create Movie object
         Book myBook = new Book();
-        myBook.setTitle(movieName);
-        myBook.setYear(movieYear);
+        myBook.setTitle(bookTitle);
+        myBook.setYear(bookYear);
         //add to hashmap
-        movies.put(movieName, myBook);
+        books.put(bookTitle, myBook);
         // return result to view
         System.out.println("Movie added ...");
     }
@@ -29,7 +29,7 @@ public class BookManager {
         // ask user for Movie to delete
         String titleToDelete =  InterfaceUtils.askString(reader,"Which one to delete?");
         // remove object from movies
-        movies.remove(titleToDelete);
+        books.remove(titleToDelete);
         System.out.println("Movie deleted ...");
     }
 
@@ -37,23 +37,23 @@ public class BookManager {
     public static void updateMovie(Scanner reader) {
         // copy/paste from findMovie
         String titleToUpdate =  InterfaceUtils.askString(reader,"Which one to update?");
-        Book bookFound = movies.get(titleToUpdate);
-        System.out.println("Movie: " + bookFound);
+        Book bookFound = books.get(titleToUpdate);
+        System.out.println("Book: " + bookFound);
         // copy/paste from createAndAddToStorage
-        int movieYear = InterfaceUtils.askInt(reader, "Movie year?");
+        int bookYear = InterfaceUtils.askInt(reader, "Book year?");
         // let s update
         Book bookToUpdate = new Book();
         bookToUpdate.setTitle(bookFound.getTitle());
-        bookToUpdate.setYear(movieYear);
+        bookToUpdate.setYear(bookYear);
         // let s replace on movies hashmap
-        movies.replace(bookFound.getTitle(), bookToUpdate);
-        System.out.println("Movie updated ...");
+        books.replace(bookFound.getTitle(), bookToUpdate);
+        System.out.println("Book updated ...");
     }
 
     // Static method
     public static void getAllMoviesFromStorage() {
         // print all movies
-        System.out.println(movies);
+        System.out.println(books);
     }
 
     // Static method
@@ -61,9 +61,9 @@ public class BookManager {
         // ask user for movie
         String titleToFind =  InterfaceUtils.askString(reader,"Which one to find?");
         // get movie from movies by key
-        Book bookFound = movies.get(titleToFind);
+        Book bookFound = books.get(titleToFind);
         // print movie
-        System.out.println("Movie: " + bookFound);
+        System.out.println("Book: " + bookFound);
     }
 
 }

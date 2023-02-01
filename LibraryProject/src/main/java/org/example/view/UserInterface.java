@@ -7,6 +7,7 @@ import static org.example.utils.InterfaceUtils.askString;
 public class UserInterface {
 
     public static void start() {
+
         Scanner reader = new Scanner(System.in);
         while (true) {
             menu();
