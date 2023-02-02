@@ -25,8 +25,7 @@ public class InterfaceUtils {
     public static String createUUID () {
 
         UUID uuid = UUID.randomUUID();
-        System.out.println("UUID generated - " + uuid);
-        System.out.println("UUID Version - " + uuid.version());
+        //System.out.println("UUID generated ( version - " + uuid.version() + ") : " +  uuid);
         String id = uuid.toString();
         return id;
 

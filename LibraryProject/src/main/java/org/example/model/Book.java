@@ -11,10 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 public class Book {
 
-        private String title;
         private String ISBN;
-        private Author author;
+        private String title;
         private int year;
+        private Author author;
         private List<Borrow> borrows;
 
 

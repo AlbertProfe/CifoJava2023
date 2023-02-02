@@ -11,11 +11,13 @@ import java.util.Date;
 @NoArgsConstructor
 public class Borrow {
 
+    private String borrowId;
     private Date initialBorrow;
     private Date dueDate;
     private Date returnDate;
-    private String borrowId;
     private String borrowStatus;
+    private Book book;
+    private User user;
 
 
 

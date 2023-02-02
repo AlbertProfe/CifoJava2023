@@ -9,7 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Author extends Person {
 
-    public int oscarQty;
+    public int publicationsQty;
+
     public List<Book> books;
 
     public Author(){

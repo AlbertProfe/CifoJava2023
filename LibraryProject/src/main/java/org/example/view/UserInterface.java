@@ -44,12 +44,12 @@ public class UserInterface {
     }
 
     public static void menu(){
-        System.out.println("1- Add");
-        System.out.println("2- Delete");
-        System.out.println("3- GetOne");
-        System.out.println("4- GetAll");
-        System.out.println("5- Update");
-        System.out.println("6- Quit");
+        System.out.println(" Main Menu");
+        System.out.println(" ---------");
+        System.out.println("1 Make Borrow (borrow)");
+        System.out.println("2 User Management (user)");
+        System.out.println("3 Book Management (book)");
+        System.out.println("4 Quit (quit)");
 
     }
 
