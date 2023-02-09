@@ -1,41 +1,64 @@
 package org.example.view;
 
-import org.example.manager.BookManager;
+
+import org.example.manager.BorrowManager;
+
 import java.util.Scanner;
 import static org.example.utils.InterfaceUtils.askString;
 
 public class UserInterface {
 
+    private static BorrowManager BorrowManger;
+
     public static void start() {
 
         Scanner reader = new Scanner(System.in);
         while (true) {
-            menu();
+            mainMenu();
             // ask user what option choose
             // call ask static method and send two parameters
             // reader to object and string option
             String command = askString(reader, "Option?");
-            if (command.equals("Quit")) {
+            if (command.equals("quit")) {
                 break;
-            } else if (command.equals("Add")) {
-                System.out.println("Add Movie to database:");
-                BookManager.createAndAddToStorage(reader);
+            } else if (command.equals("borrow")) {
+                System.out.println("Make Borrow (borrow):");
+                BorrowManger.createBorrow();
+            } else if (command.equals("user")) {
+                System.out.println("User Management (user)");
+                userRequestHandler(reader);
+            } else if (command.equals("book")) {
+                System.out.println("Book Management (book)");
+                bookRequestHandler(reader);
+            } else {
+                System.out.println("Unknown command!");
+            }
+        }
+    }
 
-            } else if (command.equals("Delete")) {
-                System.out.println("We are going to delete ... wait");
-                BookManager.deleteMovie(reader);
+    public static void userRequestHandler(Scanner reader){
+        while (true) {
+            userMenu();
+            // ask user what option choose
+            // call ask static method and send two parameters
+            // reader to object and string option
+            String command = askString(reader, "Option?");
+            if (command.equals("quit")) {
+                break;
+            } else if (command.equals("create")) {
+                System.out.println("Create user (create):");
 
-            } else if (command.equals("GetOne")) {
-                System.out.println("We are going to search ... wait");
-                BookManager.findMovie(reader);
+            } else if (command.equals("list")) {
+                System.out.println("List users (list)");
 
-            } else if (command.equals("Update")) {
-                System.out.println("We are going to update ... wait");
-                BookManager.updateMovie(reader);
+            } else if (command.equals("delete")) {
+                System.out.println("Delete user (delete)");
 
-            } else if (command.equals("GetAll")) {
-                System.out.println("We are going to show all films ... wait");
-                BookManager.getAllMoviesFromStorage();
+            } else if (command.equals("update")) {
+                System.out.println("Update user (update)");
+
+            } else if (command.equals("get")) {
+                System.out.println("Get one user (get)");
 
             } else {
                 System.out.println("Unknown command!");
@@ -43,13 +66,81 @@ public class UserInterface {
         }
     }
 
-    public static void menu(){
+    public static void bookRequestHandler(Scanner reader){
+        while (true) {
+            bookMenu();
+            // ask user what option choose
+            // call ask static method and send two parameters
+            // reader to object and string option
+            String command = askString(reader, "Option?");
+            if (command.equals("quit")) {
+                break;
+            } else if (command.equals("create")) {
+                System.out.println("Create book (create):");
+
+            } else if (command.equals("list")) {
+                System.out.println("List books (list)");
+
+            } else if (command.equals("delete")) {
+                System.out.println("Delete book (delete)");
+
+            } else if (command.equals("update")) {
+                System.out.println("Update book (update)");
+
+            } else if (command.equals("get")) {
+                System.out.println("Get one book (get)");
+
+            } else {
+                System.out.println("Unknown command!");
+            }
+        }
+    }
+
+    public static void mainMenu(){
         System.out.println(" Main Menu");
         System.out.println(" ---------");
         System.out.println("1 Make Borrow (borrow)");
         System.out.println("2 User Management (user)");
         System.out.println("3 Book Management (book)");
         System.out.println("4 Quit (quit)");
+
+    }
+
+    public static void userMenu(){
+        System.out.println(" User Menu");
+        System.out.println(" ---------");
+        System.out.println("1 Create user (create)");
+        System.out.println("2 List users (list)");
+        System.out.println("3 Delete user (delete)");
+        System.out.println("4 Update user (update)");
+        System.out.println("5 Get one user (get)");
+        System.out.println("6 Quit (quit)");
+
+        // UserClassifier.start();
+        // our system is classifing User request
+        // BookRequestHandler()
+        // UserRequestHandler()
+        // BorrowRequestHandler
+        // BorrowRequestManger
+        // askUser
+        // optionUser
+        // distributer
+        // classifier
+        // controller
+        // manager
+        //
+
+    }
+
+    public static void bookMenu(){
+        System.out.println(" Book Menu");
+        System.out.println(" ---------");
+        System.out.println("1 Create book (create)");
+        System.out.println("2 List books (list)");
+        System.out.println("3 Delete book (delete)");
+        System.out.println("4 Update book (update)");
+        System.out.println("5 Get one book (get)");
+        System.out.println("6 Quit (quit)");
 
     }
 

@@ -69,6 +69,23 @@ public class createObjectsTest {
         BookManager.createBooks(10);
     }
 
+
+    // this method will test the creation of borrow object
+    // simulating the entry date by console
+    // going from menu to menu until the borrow object
+    // is created
+    @Test
+    public void createBorrowByConsoleTest(){}
+
+
+    // We give two ids from scratch, we test
+    // the method createBorrow at BorrowManager
+    @Test
+    public void createBorrowMethodTest(){
+    }
+
+    // we create all objects, then we test them
+    // operation by operation
     @Test
     public void createBorrowTest(){
         //
@@ -117,4 +134,6 @@ public class createObjectsTest {
         assertEquals(userName, UserManager.users.get(firstUserId).getName());
         assertEquals(bookTitle, BookManager.books.get(firstBookId).getTitle());
     }
+
+
 }

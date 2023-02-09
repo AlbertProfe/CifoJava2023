@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-public class makeBorrowByConsoleTest {
+public class crudBorrowByConsoleTest {
 
     @Test
     public void createBorrowTest (){

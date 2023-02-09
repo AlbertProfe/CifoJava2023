@@ -4,9 +4,7 @@ import com.github.javafaker.Faker;
 import org.example.model.Author;
 import org.example.model.Book;
 import org.example.model.Borrow;
-import org.example.model.User;
 import org.example.utils.InterfaceUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

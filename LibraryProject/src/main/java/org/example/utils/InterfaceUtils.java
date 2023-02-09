@@ -1,8 +1,5 @@
 package org.example.utils;
 
-import org.example.model.Person;
-import org.example.model.User;
-
 import java.util.Scanner;
 import java.util.UUID;
 
