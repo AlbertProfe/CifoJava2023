@@ -23,7 +23,7 @@ public class UserInterface {
                 break;
             } else if (command.equals("borrow")) {
                 System.out.println("Make Borrow (borrow):");
-                BorrowManger.createBorrow();
+                System.out.println(BorrowManger.createBorrow(reader));
             } else if (command.equals("user")) {
                 System.out.println("User Management (user)");
                 userRequestHandler(reader);

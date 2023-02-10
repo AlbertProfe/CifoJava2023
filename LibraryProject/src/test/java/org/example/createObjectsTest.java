@@ -88,12 +88,14 @@ public class createObjectsTest {
     // operation by operation
     @Test
     public void createBorrowTest(){
-        //
+        // first I create some books and users
+        // with faker
         UserManager.createUsers(10);
         BookManager.createBooks(10);
-        //
+        // We create borrow OBJECT
         Borrow newBorrow = new Borrow();
         // https://www.educative.io/answers/what-is-optionalisempty-in-java
+        // https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html
         Optional<String> firstUserKey = UserManager.users.keySet().stream().findFirst();
         String firstUserId = "";
         if (firstUserKey.isPresent()) {
@@ -102,33 +104,33 @@ public class createObjectsTest {
         User user = UserManager.users.get(firstUserId);
         String userName = user.getName();
         newBorrow.setUser(user);
-
-        //
+        // search a book (id) and SETS to borrow objec
         Optional<String> firstBookKey = BookManager.books.keySet().stream().findFirst();
         String firstBookId ="";
         if (firstBookKey.isPresent()) {
             firstBookId = firstBookKey.get();
         }
-        Book book = BookManager.books.get(firstBookId);
+        Book book = BookManager.books.   get(firstBookId);
         String bookTitle = book.getTitle();
         newBorrow.setBook(book);
-        //
+
+        // let s set the dates
         newBorrow.setDueDate(new Date());
         newBorrow.setReturnDate(new Date());
         newBorrow.setInitialBorrow(new Date());
         // enum?
-        // https://www.educative.io/answers/what-are-enums-in-java
-        // we must define status
-        newBorrow.setBorrowStatus("open");
-        //
+        // htprogresstps://www.educative.io/answers/what-are-enums-in-java
+        // we must define status: delay, progress, closed
+        newBorrow.setBorrowStatus("PROGRESS");
+        // let s create an Id and SET it
         String borrowId = InterfaceUtils.createUUID();
         newBorrow.setBorrowId(borrowId);
-
+        // put hashmap BORROWS
         BorrowManager.borrows.put(borrowId,newBorrow );
         //System.out.println(newBorrow);
 
         assertEquals(borrowId, BorrowManager.borrows.get(borrowId).getBorrowId());
-        assertEquals("open", BorrowManager.borrows.get(borrowId).getBorrowStatus());
+        assertEquals("PROGRESS", BorrowManager.borrows.get(borrowId).getBorrowStatus());
         assertEquals(firstUserId, UserManager.users.get(firstUserId).getUserId());
         assertEquals(firstBookId, BookManager.books.get(firstBookId).getISBN());
         assertEquals(userName, UserManager.users.get(firstUserId).getName());
