@@ -47,7 +47,11 @@ public class BorrowManager {
       BorrowManager.borrows.put(borrowId,newBorrow );
 
 
-      return "Your borrow is ok. Your borrowId is: " + borrowId;
+      return "Your borrow is ok." +
+              "\n\tYour borrowId is: " + borrowId +
+              "\n\tBook Title: " + bookFound.getTitle() +
+              "\n\tUser Name: " + userFound.getName() +
+              "\n\tDue Date: " +  newBorrow.getDueDate();
 
 
    }

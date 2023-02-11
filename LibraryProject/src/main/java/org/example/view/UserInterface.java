@@ -1,7 +1,10 @@
 package org.example.view;
 
 
+import org.example.manager.BookManager;
 import org.example.manager.BorrowManager;
+import org.example.manager.UserManager;
+import org.example.utils.InterfaceUtils;
 
 import java.util.Scanner;
 import static org.example.utils.InterfaceUtils.askString;
@@ -13,6 +16,7 @@ public class UserInterface {
     public static void start() {
 
         Scanner reader = new Scanner(System.in);
+        InterfaceUtils.testBorrowUI();
         while (true) {
             mainMenu();
             // ask user what option choose

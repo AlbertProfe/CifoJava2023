@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Book {
 
+        private String bookId;
         private String ISBN;
         private String title;
         private int year;

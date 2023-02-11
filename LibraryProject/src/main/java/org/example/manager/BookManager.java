@@ -18,62 +18,68 @@ public class BookManager {
         // create faker object to use as
         // builder for book
         Faker faker = new Faker();
-        Book newbook;
+        Book newBook;
 
         for (int i = 0; i < number; i++) {
 
-            newbook = new Book();
+            newBook = new Book();
 
             // some people get nervous with this
             // be careful ...
             String bookId = InterfaceUtils.createUUID();
-            newbook.setISBN(bookId);
+            newBook.setBookId(bookId);
 
+            String bookISBN = InterfaceUtils.createUUID();
+            newBook.setISBN(bookISBN);
             String bookTitle = faker.book().title();
-            newbook.setTitle(bookTitle);
+            newBook.setTitle(bookTitle);
 
             int bookYear = faker.number().numberBetween(1000, 2023);
-            newbook.setYear(bookYear);
+            newBook.setYear(bookYear);
 
             List<Borrow> borrows = new ArrayList();
-            newbook.setBorrows(borrows);
+            newBook.setBorrows(borrows);
 
-            Author newauthor = new Author();
-            newbook.setAuthor(newauthor);
+            Author newAuthor = new Author();
+            newBook.setAuthor(newAuthor);
 
-            books.put( bookId, newbook);
-            newbook = null;
+            books.put( bookId, newBook);
+            newBook = null;
         }
     }
     // Static method
     public static void createAndAddToStorage(Scanner reader) {
-        // ask user for Movie parameters
+        // ask user for Book parameters
         String bookTitle = InterfaceUtils.askString(reader, "Book name?");
         int bookYear = InterfaceUtils.askInt(reader, "Book year?");
+        String ISBN = InterfaceUtils.askString(reader, "Book ISBN?");
         // create Movie object
         Book myBook = new Book();
         myBook.setTitle(bookTitle);
         myBook.setYear(bookYear);
+        myBook.setISBN(ISBN);
+        String bookId = InterfaceUtils.createUUID();
+        myBook.setBookId(bookId);
         //add to hashmap
-        books.put(bookTitle, myBook);
+        books.put(bookId, myBook);
         // return result to view
-        System.out.println("Movie added ...");
+        System.out.println("Book added ...");
     }
 
     // Static method
-    public static void deleteMovie(Scanner reader) {
+    public static void deleteBook(Scanner reader) {
         // ask user for Movie to delete
-        String titleToDelete =  InterfaceUtils.askString(reader,"Which one to delete?");
+        String bookToDelete =  InterfaceUtils.askString(reader,"Which one to delete (bookId)?");
         // remove object from movies
-        books.remove(titleToDelete);
-        System.out.println("Movie deleted ...");
+        books.remove(bookToDelete);
+        System.out.println("Book deleted ...");
     }
 
     // Static method
-    public static void updateMovie(Scanner reader) {
+    public static void updateBook(Scanner reader) {
         // copy/paste from findMovie
-        String titleToUpdate =  InterfaceUtils.askString(reader,"Which one to update?");
-        Book bookFound = books.get(titleToUpdate);
+        String bookIdToUpdate =  InterfaceUtils.askString(reader,"Which one to update (bookId)?");
+        Book bookFound = books.get(bookIdToUpdate);
         System.out.println("Book: " + bookFound);
         // copy/paste from createAndAddToStorage
         int bookYear = InterfaceUtils.askInt(reader, "Book year?");
@@ -82,12 +88,12 @@ public class BookManager {
         bookToUpdate.setTitle(bookFound.getTitle());
         bookToUpdate.setYear(bookYear);
         // let s replace on movies hashmap
-        books.replace(bookFound.getTitle(), bookToUpdate);
+        books.replace(bookFound.getBookId(), bookToUpdate);
         System.out.println("Book updated ...");
     }
 
     // Static method
-    public static void getAllMoviesFromStorage() {
+    public static void getAllBooksFromStorage() {
         // print all movies
         System.out.println(books);
     }
@@ -95,9 +101,9 @@ public class BookManager {
     // Static method
     public static void findMovie(Scanner reader) {
         // ask user for movie
-        String titleToFind =  InterfaceUtils.askString(reader,"Which one to find?");
+        String bookIdToFind =  InterfaceUtils.askString(reader,"Which one to find (bookId)?");
         // get movie from movies by key
-        Book bookFound = books.get(titleToFind);
+        Book bookFound = books.get(bookIdToFind);
         // print movie
         System.out.println("Book: " + bookFound);
     }
