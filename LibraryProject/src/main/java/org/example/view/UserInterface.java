@@ -22,7 +22,7 @@ public class UserInterface {
             // ask user what option choose
             // call ask static method and send two parameters
             // reader to object and string option
-            String command = askString(reader, "Option?");
+            String command = askString(reader, " Option?");
             if (command.equals("quit")) {
                 break;
             } else if (command.equals("borrow")) {
@@ -101,7 +101,7 @@ public class UserInterface {
     }
 
     public static void mainMenu(){
-        System.out.println(" Main Menu");
+        System.out.println("\n Main Menu");
         System.out.println(" ---------");
         System.out.println("1 Make Borrow (borrow)");
         System.out.println("2 User Management (user)");
@@ -111,7 +111,7 @@ public class UserInterface {
     }
 
     public static void userMenu(){
-        System.out.println(" User Menu");
+        System.out.println("\n User Menu");
         System.out.println(" ---------");
         System.out.println("1 Create user (create)");
         System.out.println("2 List users (list)");
@@ -137,7 +137,7 @@ public class UserInterface {
     }
 
     public static void bookMenu(){
-        System.out.println(" Book Menu");
+        System.out.println("\n Book Menu");
         System.out.println(" ---------");
         System.out.println("1 Create book (create)");
         System.out.println("2 List books (list)");

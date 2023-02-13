@@ -24,7 +24,6 @@ public class InterfaceUtils {
         return result;
     }
 
-
     public static String createUUID () {
 
         UUID uuid = UUID.randomUUID();
@@ -38,7 +37,12 @@ public class InterfaceUtils {
         BookManager.createBooks(10);
         UserManager.createUsers(10);
 
-        Optional<String> firstUserKey = UserManager.users.keySet().stream().findFirst();
+        System.out.println("\nBookIds:\n" + BookManager.books.keySet());
+        System.out.println("\nUserIds:\n" + UserManager.users.keySet());
+
+        // just the first element
+
+       /* Optional<String> firstUserKey = UserManager.users.keySet().stream().findFirst();
         String firstUserId = "";
         if (firstUserKey.isPresent()) {
             firstUserId = firstUserKey.get();
@@ -50,7 +54,7 @@ public class InterfaceUtils {
         if (firstBookKey.isPresent()) {
             firstBookId = firstBookKey.get();
             System.out.println("bookId: " + firstBookId );
-        }
+        }*/
 
 
 
