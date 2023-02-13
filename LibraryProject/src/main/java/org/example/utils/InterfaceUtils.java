@@ -34,7 +34,7 @@ public class InterfaceUtils {
 
     }
 
-    public static void testBorrowUI(){
+    public static void populateFakeDataStorage(){
         BookManager.createBooks(10);
         UserManager.createUsers(10);
 

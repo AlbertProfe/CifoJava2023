@@ -16,7 +16,7 @@ public class UserInterface {
     public static void start() {
 
         Scanner reader = new Scanner(System.in);
-        InterfaceUtils.testBorrowUI();
+        InterfaceUtils.populateFakeDataStorage();
         while (true) {
             mainMenu();
             // ask user what option choose

@@ -99,7 +99,7 @@ public class BookManager {
     }
 
     // Static method
-    public static void findMovie(Scanner reader) {
+    public static void findBook(Scanner reader) {
         // ask user for movie
         String bookIdToFind =  InterfaceUtils.askString(reader,"Which one to find (bookId)?");
         // get movie from movies by key

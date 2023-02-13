@@ -44,6 +44,7 @@ public class BorrowManager {
 
       String borrowId = InterfaceUtils.createUUID();
       newBorrow.setBorrowId(borrowId);
+
       BorrowManager.borrows.put(borrowId,newBorrow );
 
 
