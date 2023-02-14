@@ -14,6 +14,7 @@ public class BookManager {
 
     public static HashMap<String, Book> books = new HashMap<String, Book>();
 
+    // Static method
     public static void createBooks(int number) {
         // create faker object to use as
         // builder for book
@@ -47,6 +48,7 @@ public class BookManager {
             newBook = null;
         }
     }
+
     // Static method
     public static void createAndAddToStorage(Scanner reader) {
         // ask user for Book parameters

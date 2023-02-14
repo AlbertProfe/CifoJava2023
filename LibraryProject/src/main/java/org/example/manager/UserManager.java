@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UserManager {
+
     public static HashMap<String, User> users = new HashMap<>();
 
     public static void createUsers(int number) {

@@ -4,11 +4,10 @@ import org.example.model.Book;
 import org.example.model.Borrow;
 import org.example.model.User;
 import org.example.utils.Utils;
-
 import static org.example.utils.Utils.askString;
-
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -56,6 +55,9 @@ public class BorrowManager {
 
    public static String returnBook(String inputType,Scanner reader) {
 
+      // find Borrow from borrows, if not error string
+      Borrow borrowFound = null;
+
       if (inputType.equals("book")) {
          String bookId = askString(reader, "Book id?");
          Book bookFound = BookManager.books.getOrDefault(bookId, null);
@@ -63,6 +65,9 @@ public class BorrowManager {
             return "Book not found";
          } else {
             // find out borrow object by bookId
+            borrowFound = findBorrowByBook(bookFound);
+            if (borrowFound == null) return "Not borrow found with this bookId";
+
          }
       } else if (inputType.equals("user")) {
          String userId = askString(reader, "User id?");
@@ -74,19 +79,39 @@ public class BorrowManager {
          }
       } else if (inputType.equals("borrow")) {
          String borrowId = askString(reader, "Borrow id?");
-         Borrow borrowFound = BorrowManager.borrows.getOrDefault(borrowId, null);
+         borrowFound = BorrowManager.borrows.getOrDefault(borrowId, null);
          if (borrowFound==null) {
             return "Borrow not found";
          } else {
             // get borrow object
          }
       } else {
-         System.out.println("Unknown command!");
+         return "Error. Please talk with Sys Admin. Before that refresh system.";
       }
 
       // once borrow object is found > change status
-      // crate String to return
+
+      // create String to return
 
       return "return";
    }
+
+   public static Borrow findBorrowByBook(Book book){
+
+      for(Borrow borrow: borrows.values()) {
+         if (borrow.getBook().getBookId().equals(book.getBookId())) {
+            return borrow;
+         }
+      }
+      return null;
+   }
+
+   public static List<Borrow> findBorrowsByUser(User user){
+
+      return null;
+   }
+
+
+
+
 }
