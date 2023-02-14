@@ -3,9 +3,9 @@ package org.example.manager;
 import org.example.model.Book;
 import org.example.model.Borrow;
 import org.example.model.User;
-import org.example.utils.InterfaceUtils;
+import org.example.utils.Utils;
 
-import static org.example.utils.InterfaceUtils.askString;
+import static org.example.utils.Utils.askString;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -42,18 +42,51 @@ public class BorrowManager {
 
       newBorrow.setBorrowStatus("PROGRESS");
 
-      String borrowId = InterfaceUtils.createUUID();
+      String borrowId = Utils.createUUID();
       newBorrow.setBorrowId(borrowId);
 
       BorrowManager.borrows.put(borrowId,newBorrow );
-
 
       return "Your borrow is ok." +
               "\n\tYour borrowId is: " + borrowId +
               "\n\tBook Title: " + bookFound.getTitle() +
               "\n\tUser Name: " + userFound.getName() +
               "\n\tDue Date: " +  newBorrow.getDueDate();
+   }
 
+   public static String returnBook(String inputType,Scanner reader) {
 
+      if (inputType.equals("book")) {
+         String bookId = askString(reader, "Book id?");
+         Book bookFound = BookManager.books.getOrDefault(bookId, null);
+         if (bookFound==null) {
+            return "Book not found";
+         } else {
+            // find out borrow object by bookId
+         }
+      } else if (inputType.equals("user")) {
+         String userId = askString(reader, "User id?");
+         User userFound = UserManager.users.getOrDefault(userId, null);
+         if (userFound==null) {
+            return "User not found";
+         } else {
+            // find out borrow object by userId
+         }
+      } else if (inputType.equals("borrow")) {
+         String borrowId = askString(reader, "Borrow id?");
+         Borrow borrowFound = BorrowManager.borrows.getOrDefault(borrowId, null);
+         if (borrowFound==null) {
+            return "Borrow not found";
+         } else {
+            // get borrow object
+         }
+      } else {
+         System.out.println("Unknown command!");
+      }
+
+      // once borrow object is found > change status
+      // crate String to return
+
+      return "return";
    }
 }

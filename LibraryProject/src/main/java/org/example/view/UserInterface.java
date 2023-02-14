@@ -1,13 +1,11 @@
 package org.example.view;
 
 
-import org.example.manager.BookManager;
 import org.example.manager.BorrowManager;
-import org.example.manager.UserManager;
-import org.example.utils.InterfaceUtils;
+import org.example.utils.Utils;
 
 import java.util.Scanner;
-import static org.example.utils.InterfaceUtils.askString;
+import static org.example.utils.Utils.askString;
 
 public class UserInterface {
 
@@ -16,7 +14,7 @@ public class UserInterface {
     public static void start() {
 
         Scanner reader = new Scanner(System.in);
-        InterfaceUtils.populateFakeDataStorage();
+        Utils.populateFakeDataStorage();
         while (true) {
             mainMenu();
             // ask user what option choose
@@ -28,6 +26,9 @@ public class UserInterface {
             } else if (command.equals("borrow")) {
                 System.out.println("Make Borrow (borrow):");
                 System.out.println(BorrowManger.createBorrow(reader));
+            } else if (command.equals("return")) {
+                System.out.println("Book Return (return):");
+                bookReturnHandler(reader);
             } else if (command.equals("user")) {
                 System.out.println("User Management (user)");
                 userRequestHandler(reader);
@@ -71,6 +72,7 @@ public class UserInterface {
     }
 
     public static void bookRequestHandler(Scanner reader){
+
         while (true) {
             bookMenu();
             // ask user what option choose
@@ -100,13 +102,40 @@ public class UserInterface {
         }
     }
 
+    public static void bookReturnHandler(Scanner reader){
+        while (true) {
+
+            bookReturnMenu();;
+            // ask user what option choose
+            // call ask static method and send two parameters
+            // reader to object and string option
+            String command = askString(reader, "Option?");
+            if (command.equals("quit")) {
+                break;
+            } else if (command.equals("book")) {
+                System.out.println("Introduce book Id (book):");
+                System.out.println(BorrowManger.returnBook("book",reader));
+            } else if (command.equals("user")) {
+                System.out.println("Introduce user Id (user)");
+                System.out.println(BorrowManger.returnBook("user",reader));
+            } else if (command.equals("borrow")) {
+                System.out.println("Introduce borrow Id (borrow)");
+                System.out.println(BorrowManger.returnBook("borrow",reader));
+            } else {
+                System.out.println("Unknown command!");
+            }
+        }
+    }
+
+
     public static void mainMenu(){
         System.out.println("\n Main Menu");
         System.out.println(" ---------");
         System.out.println("1 Make Borrow (borrow)");
-        System.out.println("2 User Management (user)");
-        System.out.println("3 Book Management (book)");
-        System.out.println("4 Quit (quit)");
+        System.out.println("2 Book Return (return)");
+        System.out.println("3 User Management (user)");
+        System.out.println("4 Book Management (book)");
+        System.out.println("5 Quit (quit)");
 
     }
 
@@ -145,6 +174,16 @@ public class UserInterface {
         System.out.println("4 Update book (update)");
         System.out.println("5 Get one book (get)");
         System.out.println("6 Quit (quit)");
+
+    }
+
+    public static void bookReturnMenu(){
+        System.out.println("\n Book Return Menu");
+        System.out.println(" ---------");
+        System.out.println("1 Introduce book Id (book)");
+        System.out.println("2 Introduce user Id (user)");
+        System.out.println("3 Introduce borrow Id (borrow)");
+        System.out.println("4 Quit (quit)");
 
     }
 

@@ -5,7 +5,7 @@ import org.example.manager.BookManager;
 import org.example.manager.BorrowManager;
 import org.example.manager.UserManager;
 import org.example.model.*;
-import org.example.utils.InterfaceUtils;
+import org.example.utils.Utils;
 import org.junit.jupiter.api.Test;
 import java.util.Optional;
 import java.util.Date;
@@ -123,7 +123,7 @@ public class createObjectsTest {
         // we must define status: delay, progress, closed
         newBorrow.setBorrowStatus("PROGRESS");
         // let s create an Id and SET it
-        String borrowId = InterfaceUtils.createUUID();
+        String borrowId = Utils.createUUID();
         newBorrow.setBorrowId(borrowId);
         // put hashmap BORROWS
         BorrowManager.borrows.put(borrowId,newBorrow );

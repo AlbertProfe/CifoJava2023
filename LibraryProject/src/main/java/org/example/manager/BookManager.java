@@ -4,7 +4,7 @@ import com.github.javafaker.Faker;
 import org.example.model.Author;
 import org.example.model.Book;
 import org.example.model.Borrow;
-import org.example.utils.InterfaceUtils;
+import org.example.utils.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,10 +26,10 @@ public class BookManager {
 
             // some people get nervous with this
             // be careful ...
-            String bookId = InterfaceUtils.createUUID();
+            String bookId = Utils.createUUID();
             newBook.setBookId(bookId);
 
-            String bookISBN = InterfaceUtils.createUUID();
+            String bookISBN = Utils.createUUID();
             newBook.setISBN(bookISBN);
             String bookTitle = faker.book().title();
             newBook.setTitle(bookTitle);
@@ -50,15 +50,15 @@ public class BookManager {
     // Static method
     public static void createAndAddToStorage(Scanner reader) {
         // ask user for Book parameters
-        String bookTitle = InterfaceUtils.askString(reader, "Book name?");
-        int bookYear = InterfaceUtils.askInt(reader, "Book year?");
-        String ISBN = InterfaceUtils.askString(reader, "Book ISBN?");
+        String bookTitle = Utils.askString(reader, "Book name?");
+        int bookYear = Utils.askInt(reader, "Book year?");
+        String ISBN = Utils.askString(reader, "Book ISBN?");
         // create Movie object
         Book myBook = new Book();
         myBook.setTitle(bookTitle);
         myBook.setYear(bookYear);
         myBook.setISBN(ISBN);
-        String bookId = InterfaceUtils.createUUID();
+        String bookId = Utils.createUUID();
         myBook.setBookId(bookId);
         //add to hashmap
         books.put(bookId, myBook);
@@ -69,7 +69,7 @@ public class BookManager {
     // Static method
     public static void deleteBook(Scanner reader) {
         // ask user for Movie to delete
-        String bookToDelete =  InterfaceUtils.askString(reader,"Which one to delete (bookId)?");
+        String bookToDelete =  Utils.askString(reader,"Which one to delete (bookId)?");
         // remove object from movies
         books.remove(bookToDelete);
         System.out.println("Book deleted ...");
@@ -78,11 +78,11 @@ public class BookManager {
     // Static method
     public static void updateBook(Scanner reader) {
         // copy/paste from findMovie
-        String bookIdToUpdate =  InterfaceUtils.askString(reader,"Which one to update (bookId)?");
+        String bookIdToUpdate =  Utils.askString(reader,"Which one to update (bookId)?");
         Book bookFound = books.get(bookIdToUpdate);
         System.out.println("Book: " + bookFound);
         // copy/paste from createAndAddToStorage
-        int bookYear = InterfaceUtils.askInt(reader, "Book year?");
+        int bookYear = Utils.askInt(reader, "Book year?");
         // let s update
         Book bookToUpdate = new Book();
         bookToUpdate.setTitle(bookFound.getTitle());
@@ -101,7 +101,7 @@ public class BookManager {
     // Static method
     public static void findBook(Scanner reader) {
         // ask user for movie
-        String bookIdToFind =  InterfaceUtils.askString(reader,"Which one to find (bookId)?");
+        String bookIdToFind =  Utils.askString(reader,"Which one to find (bookId)?");
         // get movie from movies by key
         Book bookFound = books.get(bookIdToFind);
         // print movie

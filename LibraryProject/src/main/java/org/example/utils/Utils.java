@@ -2,14 +2,11 @@ package org.example.utils;
 
 import org.example.manager.BookManager;
 import org.example.manager.UserManager;
-import org.example.model.Book;
-import org.example.model.User;
 
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class InterfaceUtils {
+public class Utils {
 
     public static String askString (Scanner reader, String question){
         System.out.println(question);

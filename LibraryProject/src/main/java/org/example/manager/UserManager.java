@@ -3,7 +3,7 @@ package org.example.manager;
 import com.github.javafaker.Faker;
 import org.example.model.Borrow;
 import org.example.model.User;
-import org.example.utils.InterfaceUtils;
+import org.example.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class UserManager {
 
             newuser =new User();
 
-            String userId = InterfaceUtils.createUUID();
+            String userId = Utils.createUUID();
             newuser.setUserId(userId);
 
             String userName = faker.name().firstName();
