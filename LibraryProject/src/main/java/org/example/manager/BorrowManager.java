@@ -4,11 +4,11 @@ import org.example.model.Book;
 import org.example.model.Borrow;
 import org.example.model.User;
 import org.example.utils.Utils;
+
+import static org.example.utils.Utils.askInt;
 import static org.example.utils.Utils.askString;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+
+import java.util.*;
 
 
 public class BorrowManager {
@@ -33,7 +33,7 @@ public class BorrowManager {
       if (userFound==null) {
          return "User not found";
       } else {
-        newBorrow.setBook(bookFound);
+        newBorrow.setUser(userFound);
       }
 
       newBorrow.setDueDate(new Date());
@@ -70,7 +70,6 @@ public class BorrowManager {
             // find out borrow object by bookId
             borrowFound = findBorrowByBook(bookFound);
             if (borrowFound == null) return "Not borrow found with this bookId";
-
          }
       } else if (inputType.equals("user")) {
          String userId = askString(reader, "User id?");
@@ -79,6 +78,7 @@ public class BorrowManager {
             return "User not found";
          } else {
             // find out borrow object by userId
+            borrowFound = findBorrowByUser(reader, userFound);
          }
       } else if (inputType.equals("borrow")) {
          String borrowId = askString(reader, "Borrow id?");
@@ -93,25 +93,54 @@ public class BorrowManager {
       }
 
       // once borrow object is found > change status
+      borrowFound.setBorrowStatus("CLOSED");
 
-      // create String to return
+      String messageReturnBook = "Your book borrow return is ok";
 
-      return "return";
+      return messageReturnBook;
    }
 
    public static Borrow findBorrowByBook(Book book){
 
       for(Borrow borrow: borrows.values()) {
-         if (borrow.getBook().getBookId().equals(book.getBookId())) {
+         //
+         String bookIdFromBorrow = borrow.getBook().getBookId();
+         String bookIdFromBook = book.getBookId();
+         boolean bookIdCheck =  bookIdFromBorrow.equals(bookIdFromBook);
+         boolean statusCheck =  borrow.getBorrowStatus().equals("PROGRESS");
+
+         if (bookIdCheck && statusCheck) {
             return borrow;
          }
       }
       return null;
    }
+   public static Borrow findBorrowByUser(Scanner reader, User user){
+      //
+      List<Borrow> borrowsByUser = findBorrowsByUser(user);
+      //
+      System.out.println(borrowsByUser);
+      int index = askInt(reader,"Number (int) from 0?");
+      Borrow borrowFound = borrowsByUser.get(index);
 
+      return borrowFound;
+   }
    public static List<Borrow> findBorrowsByUser(User user){
+      //
+      List<Borrow> borrowsByUser = new ArrayList<Borrow>();
+      for(Borrow borrow: borrows.values()) {
+         //
+         String userIdFromBorrow = borrow.getUser().getUserId();
+         String userIdFromUser = user.getUserId();
+         boolean userIdCheck =  userIdFromBorrow.equals(userIdFromUser);
+         boolean statusCheck =  borrow.getBorrowStatus().equals("PROGRESS");
+         //
+         if (userIdCheck && statusCheck) {
+            borrowsByUser.add(borrow);
+         }
+      }
 
-      return null;
+      return borrowsByUser;
    }
 
 
