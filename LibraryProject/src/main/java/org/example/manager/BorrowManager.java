@@ -4,12 +4,8 @@ import org.example.model.Book;
 import org.example.model.Borrow;
 import org.example.model.User;
 import org.example.utils.Utils;
-
-import static org.example.utils.Utils.askInt;
 import static org.example.utils.Utils.askString;
-
 import java.util.*;
-
 
 public class BorrowManager {
 
@@ -33,7 +29,7 @@ public class BorrowManager {
       if (userFound==null) {
          return "User not found";
       } else {
-        newBorrow.setUser(userFound);
+         newBorrow.setUser(userFound);
       }
 
       newBorrow.setDueDate(new Date());
@@ -61,43 +57,42 @@ public class BorrowManager {
       // find Borrow from borrows, if not error string
       Borrow borrowFound = null;
       // let s filter the 3 options
-      if (inputType.equals("book")) {
-         String bookId = askString(reader, "Book id?");
-         Book bookFound = BookManager.books.getOrDefault(bookId, null);
-         if (bookFound==null) {
-            return "Book not found";
-         } else {
-            // find out borrow object by bookId
-            borrowFound = findBorrowByBook(bookFound);
-            if (borrowFound == null) return "Not borrow found with this bookId";
-         }
-      } else if (inputType.equals("user")) {
-         String userId = askString(reader, "User id?");
-         User userFound = UserManager.users.getOrDefault(userId, null);
-         if (userFound==null) {
-            return "User not found";
-         } else {
-            // find out borrow object by userId
-            borrowFound = findBorrowByUser(reader, userFound);
-         }
-      } else if (inputType.equals("borrow")) {
-         String borrowId = askString(reader, "Borrow id?");
-         borrowFound = BorrowManager.borrows.getOrDefault(borrowId, null);
-         if (borrowFound==null) {
-            return "Borrow not found";
-         } else {
-            // get borrow object
-         }
-      } else {
-         return "Error. Please talk with Sys Admin. Before that refresh system.";
+      switch (inputType) {
+         case "book":
+            String bookId = askString(reader, "Book id?");
+            Book bookFound = BookManager.books.getOrDefault(bookId, null);
+            if (bookFound == null) {
+               return "Book not found";
+            } else {
+               // find out borrow object by bookId
+               borrowFound = findBorrowByBook(bookFound);
+               if (borrowFound == null) return "Not borrow found with this bookId";
+            }
+            break;
+         case "user":
+            String userId = askString(reader, "User id?");
+            User userFound = UserManager.users.getOrDefault(userId, null);
+            if (userFound == null) {
+               return "User not found";
+            } else {
+               // find out borrow object by userId
+               borrowFound = pickBorrowByUser(reader, userFound);
+               if (borrowFound == null) return "Not borrow found with this userId";
+            }
+            break;
+         case "borrow":
+            String borrowId = askString(reader, "Borrow id?");
+            borrowFound = BorrowManager.borrows.getOrDefault(borrowId, null);
+            if (borrowFound == null)  return "Borrow not found";
+            break;
+         default:
+            return "Error 604. Please talk with Sys Admin. Keep calm and going on.";
       }
 
       // once borrow object is found > change status
       borrowFound.setBorrowStatus("CLOSED");
 
-      String messageReturnBook = "Your book borrow return is ok";
-
-      return messageReturnBook;
+      return "Your book borrow return is ok";
    }
 
    public static Borrow findBorrowByBook(Book book){
@@ -115,16 +110,43 @@ public class BorrowManager {
       }
       return null;
    }
-   public static Borrow findBorrowByUser(Scanner reader, User user){
+
+   public static Borrow pickBorrowByUser(Scanner reader, User user){
+      Borrow borrowFound = null;
       //
       List<Borrow> borrowsByUser = findBorrowsByUser(user);
+      int userBorrowsSize = borrowsByUser.size();
       //
-      System.out.println(borrowsByUser);
-      int index = askInt(reader,"Number (int) from 0?");
-      Borrow borrowFound = borrowsByUser.get(index);
+      if (userBorrowsSize > 0) {
+         System.out.println(user.getName() + " has " + userBorrowsSize + " borrows");
+         List<String> borrowIds = new ArrayList<String>();
+         //
+         borrowsByUser.forEach( (borrow) -> {
+                 System.out.println("borrow Id: " + borrow.getBorrowId() + ":\n\t"+ borrow + "\n");
+                  borrowIds.add(borrow.getBorrowId());
+         });
+         //
+         while (true) {
+            System.out.println("\n1 - Borrow Id (borrowId)");
+            System.out.println("2- Quit (quit) ");
+            String command = askString(reader, " Borrow Id??");
+
+            if (command.equals("quit")) {
+               break;
+            } else if (borrowIds.contains(command)) {
+               //
+               for (Borrow borrow : borrowsByUser) {
+                if (borrow.getBorrowId().equals(command)) borrowFound = borrow;
+               }
+            } else {
+               System.out.println("Unknown command!");
+            }
+         }
+      } else return null;
 
       return borrowFound;
    }
+
    public static List<Borrow> findBorrowsByUser(User user){
       //
       List<Borrow> borrowsByUser = new ArrayList<Borrow>();
@@ -143,7 +165,8 @@ public class BorrowManager {
       return borrowsByUser;
    }
 
-
-
+   public static List<Borrow> findAllBorrowsByUser(User user) {
+      return null;
+   }
 
 }
