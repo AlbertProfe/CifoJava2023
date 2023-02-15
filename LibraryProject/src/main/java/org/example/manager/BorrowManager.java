@@ -33,7 +33,7 @@ public class BorrowManager {
       if (userFound==null) {
          return "User not found";
       } else {
-         newBorrow.setBook(bookFound);
+        newBorrow.setBook(bookFound);
       }
 
       newBorrow.setDueDate(new Date());
@@ -46,6 +46,9 @@ public class BorrowManager {
 
       BorrowManager.borrows.put(borrowId,newBorrow );
 
+      // let s add this borrow to the user
+      // userfound.getBorrows.add(newBorrow);
+
       return "Your borrow is ok." +
               "\n\tYour borrowId is: " + borrowId +
               "\n\tBook Title: " + bookFound.getTitle() +
@@ -57,7 +60,7 @@ public class BorrowManager {
 
       // find Borrow from borrows, if not error string
       Borrow borrowFound = null;
-
+      // let s filter the 3 options
       if (inputType.equals("book")) {
          String bookId = askString(reader, "Book id?");
          Book bookFound = BookManager.books.getOrDefault(bookId, null);
