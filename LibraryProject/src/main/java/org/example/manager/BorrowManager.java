@@ -175,9 +175,13 @@ public class BorrowManager {
          });
          */
          //
+         int index = 1;
          for (Borrow borrow : borrowsByUser) {
-            System.out.println("borrow Id: " + borrow.getBorrowId() + ":\n\t"+ borrow + "\n");
+            System.out.println("borrow #" + index + ": Id: " + borrow.getBorrowId() +
+                    " \tBook: "+ borrow.getBook().getTitle() + " \tStatus: " +
+                    borrow.getBorrowStatus());
             borrowIds.add(borrow.getBorrowId());
+            index++;
          }
          //
          while (true) {
@@ -191,7 +195,10 @@ public class BorrowManager {
                //
                for (Borrow borrow : borrowsByUser) {
                 if (borrow.getBorrowId().equals(command)) borrowFound = borrow;
-                //
+                  // return borrowFound = borrow;
+                  // as soon this line is executed, and we had found the book
+                  // we should get out from the loop for the
+                  // maybe a return would be a good option
                }
             } else {
                System.out.println("Unknown command!");
@@ -199,6 +206,7 @@ public class BorrowManager {
          }
       } else return null;
 
+      //return null;
       return borrowFound;
    }
 
