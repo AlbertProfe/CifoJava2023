@@ -114,13 +114,13 @@ public class UserInterface {
                 break;
             } else if (command.equals("book")) {
                 System.out.println("Introduce book Id (book):");
-                System.out.println(BorrowManager.returnBook("book",reader));
+                System.out.println(BorrowManager.returnBookByBook(reader));
             } else if (command.equals("user")) {
                 System.out.println("Introduce user Id (user)");
-                System.out.println(BorrowManager.returnBook("user",reader));
+                System.out.println(BorrowManager.returnBookByUser(reader));
             } else if (command.equals("borrow")) {
                 System.out.println("Introduce borrow Id (borrow)");
-                System.out.println(BorrowManager.returnBook("borrow",reader));
+                System.out.println(BorrowManager.returnBookByBorrow(reader));
             } else {
                 System.out.println("Unknown command!");
             }

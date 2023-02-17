@@ -99,46 +99,50 @@ public class BorrowManager {
               "\n\tDue Date: " +  newBorrow.getDueDate();
    }
 
-   public static String returnBook(String inputType,Scanner reader) {
-
-      // find Borrow from borrows, if not error string
+   public static String returnBookByBook(Scanner reader) {
       Borrow borrowFound = null;
-      // let s filter the 3 options
-      switch (inputType) {
-         case "book":
-            String bookId = askString(reader, "Book id?");
-            Book bookFound = books.getOrDefault(bookId, null);
-            if (bookFound == null) {
-               return "Book not found";
-            } else {
-               // find out borrow object by bookId
-               borrowFound = findBorrowByBook(bookFound);
-               if (borrowFound == null) return "Not borrow found with this bookId";
-            }
-            break;
-         case "user":
-            String userId = askString(reader, "User id?");
-            User userFound = users.getOrDefault(userId, null);
-            if (userFound == null) {
-               return "User not found";
-            } else {
-               // find out borrow object by userId
-               borrowFound = pickBorrowByUser(reader, userFound);
-               if (borrowFound == null) return "Not borrow found with this userId";
-            }
-            break;
-         case "borrow":
-            String borrowId = askString(reader, "Borrow id?");
-            borrowFound = BorrowManager.borrows.getOrDefault(borrowId, null);
-            if (borrowFound == null)  return "Borrow not found";
-            break;
-         default:
-            return "Error 604. Please talk with Sys Admin. Keep calm and going on.";
+
+      String bookId = askString(reader, "Book id?");
+      Book bookFound = books.getOrDefault(bookId, null);
+      if (bookFound == null) {
+         return "Book not found";
+      } else {
+         // find out borrow object by bookId
+         borrowFound = findBorrowByBook(bookFound);
+         if (borrowFound == null) return "Not borrow found with this bookId";
+         borrowFound.setBorrowStatus("CLOSED");
+         return "Your book borrow return is ok";
       }
 
+   }
+   public static String returnBookByUser(Scanner reader) {
+
+   // find Borrow from borrows, if not error string
+   Borrow borrowFound = null;
+   // let s filter the 3 options
+   String userId = askString(reader, "User id?");
+   User userFound = users.getOrDefault(userId, null);
+   if (userFound == null) {
+      return "User not found";
+   } else {
+      // find out borrow object by userId
+      borrowFound = pickBorrowByUser(reader, userFound);
+      if (borrowFound == null) return "Not borrow found with this userId";
+   }
       // once borrow object is found > change status
       borrowFound.setBorrowStatus("CLOSED");
+      return "Your book borrow return is ok";
 
+   }
+
+   public static String returnBookByBorrow(Scanner reader) {
+      Borrow borrowFound = null;
+      //
+      String borrowId = askString(reader, "Borrow id?");
+      borrowFound = BorrowManager.borrows.getOrDefault(borrowId, null);
+      if (borrowFound == null)  return "Borrow not found";
+
+      borrowFound.setBorrowStatus("CLOSED");
       return "Your book borrow return is ok";
    }
 
