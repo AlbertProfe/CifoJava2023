@@ -13,33 +13,33 @@ public class UserManager {
 
     public static HashMap<String, User> users = new HashMap<>();
 
-    public static void createUsers(int number) {
+    public static void createFakeUsers(int number) {
         // create faker object to use as
         // builder for user
         Faker faker = new Faker();
-        User newuser;
+        User newUser;
 
         for (int i = 0; i < number; i++) {
 
-            newuser =new User();
+            newUser =new User();
 
             String userId = Utils.createUUID();
-            newuser.setUserId(userId);
+            newUser.setUserId(userId);
 
             String userName = faker.name().firstName();
-            newuser.setName(userName);
+            newUser.setName(userName);
 
             String userAddress = faker.address().fullAddress();
-            newuser.setAddress(userAddress);
+            newUser.setAddress(userAddress);
 
             int userAge = faker.number().numberBetween(0, 100);
-            newuser.setAge(userAge);
+            newUser.setAge(userAge);
 
-            List<Borrow> borrows = new ArrayList();
-            newuser.setBorrows(borrows);
+            List<Borrow> borrows = new ArrayList<Borrow>();
+            newUser.setBorrows(borrows);
 
-            users.put(userId, newuser);
-            newuser = null;
+            users.put(userId, newUser);
+            newUser = null;
         }
     }
 

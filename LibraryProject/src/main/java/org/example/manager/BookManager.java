@@ -15,7 +15,7 @@ public class BookManager {
     public static HashMap<String, Book> books = new HashMap<String, Book>();
 
     // Static method
-    public static void createBooks(int number) {
+    public static void createFakeBooks(int number) {
         // create faker object to use as
         // builder for book
         Faker faker = new Faker();

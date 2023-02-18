@@ -31,9 +31,9 @@ public class Utils {
     }
 
     public static void populateFakeDataStorage() {
-        BookManager.createBooks(10);
-        UserManager.createUsers(10);
-        BorrowManager.createBorrows(1000);
+        BookManager.createFakeBooks(10);
+        UserManager.createFakeUsers(10);
+        BorrowManager.createFakeBorrows(1000);
         //
         printPopulateFakeDataStorage();
 
@@ -56,6 +56,6 @@ public class Utils {
     public static void printPopulateFakeDataStorage() {
         System.out.println("\nBookIds:\n" + BookManager.books.keySet());
         System.out.println("\nUserIds:\n" + UserManager.users.keySet());
-        System.out.println("\nBorrowsIds:\n" + BorrowManager.borrows.keySet());
+        //System.out.println("\nBorrowsIds:\n" + BorrowManager.borrows.keySet());
     }
 }

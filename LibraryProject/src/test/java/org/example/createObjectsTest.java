@@ -60,13 +60,13 @@ public class createObjectsTest {
     @Test
     public void createFakerUsersTest(){
         //
-        UserManager.createUsers(10);
+        UserManager.createFakeUsers(10);
     }
 
     @Test
     public void createFakerBooksTest(){
         //
-        BookManager.createBooks(10);
+        BookManager.createFakeBooks(10);
     }
 
 
@@ -90,8 +90,8 @@ public class createObjectsTest {
     public void createBorrowTest(){
         // first I create some books and users
         // with faker
-        UserManager.createUsers(10);
-        BookManager.createBooks(10);
+        UserManager.createFakeUsers(10);
+        BookManager.createFakeBooks(10);
         // We create borrow OBJECT
         Borrow newBorrow = new Borrow();
         // https://www.educative.io/answers/what-is-optionalisempty-in-java

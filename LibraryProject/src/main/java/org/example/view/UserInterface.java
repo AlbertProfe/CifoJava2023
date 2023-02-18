@@ -25,10 +25,13 @@ public class UserInterface {
                 break;
             } else if (command.equals("borrow")) {
                 System.out.println("Make Borrow (borrow):");
-                System.out.println(BorrowManager.createBorrow(reader));
+                System.out.println(BorrowManager.createFakeBorrow(reader));
             } else if (command.equals("return")) {
                 System.out.println("Book Return (return):");
                 bookReturnHandler(reader);
+            } else if (command.equals("borrows")) {
+                System.out.println("All borrows (borrows):");
+                BorrowManager.printAllBorrows();
             } else if (command.equals("user")) {
                 System.out.println("User Management (user)");
                 userRequestHandler(reader);
@@ -133,10 +136,10 @@ public class UserInterface {
         System.out.println(" ---------");
         System.out.println("1 Make Borrow (borrow)");
         System.out.println("2 Book Return (return)");
-        System.out.println("3 User Management (user)");
-        System.out.println("4 Book Management (book)");
-        System.out.println("5 Quit (quit)");
-
+        System.out.println("3 All Borrows (borrows)");
+        System.out.println("4 User Management (user)");
+        System.out.println("5 Book Management (book)");
+        System.out.println("6 Quit (quit)");
     }
 
     public static void userMenu(){
@@ -148,21 +151,6 @@ public class UserInterface {
         System.out.println("4 Update user (update)");
         System.out.println("5 Get one user (get)");
         System.out.println("6 Quit (quit)");
-
-        // UserClassifier.start();
-        // our system is classifing User request
-        // BookRequestHandler()
-        // UserRequestHandler()
-        // BorrowRequestHandler
-        // BorrowRequestManger
-        // askUser
-        // optionUser
-        // distributer
-        // classifier
-        // controller
-        // manager
-        //
-
     }
 
     public static void bookMenu(){
@@ -174,7 +162,6 @@ public class UserInterface {
         System.out.println("4 Update book (update)");
         System.out.println("5 Get one book (get)");
         System.out.println("6 Quit (quit)");
-
     }
 
     public static void bookReturnMenu(){
@@ -184,7 +171,16 @@ public class UserInterface {
         System.out.println("2 Introduce user Id (user)");
         System.out.println("3 Introduce borrow Id (borrow)");
         System.out.println("4 Quit (quit)");
+    }
 
+    public static void selectBorrowMenu(){
+        System.out.println("\n Select Menu");
+        System.out.println(" ---------");;
+        System.out.println("1 - Borrow Id (borrowId)");
+        System.out.println("2 - All borrows (all)");
+        System.out.println("3 - Clear borrows (clear)");
+        System.out.println("4 - Quit and close borrows (close) ");
+        System.out.println("4 - Quit and clear borrows (quit) ");
     }
 
 }
