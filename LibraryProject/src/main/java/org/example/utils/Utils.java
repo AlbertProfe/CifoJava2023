@@ -10,24 +10,19 @@ public class Utils {
 
     public static String askString(Scanner reader, String question) {
         System.out.println(question);
-        String result = reader.nextLine();
-
-        return result;
+        return reader.nextLine();
     }
 
     public static int askInt(Scanner reader, String question) {
         System.out.println(question);
-        int result = Integer.parseInt(reader.nextLine());
-        return result;
+        return Integer.parseInt(reader.nextLine());
     }
 
     public static String createUUID() {
 
         UUID uuid = UUID.randomUUID();
         //System.out.println("UUID generated ( version - " + uuid.version() + ") : " +  uuid);
-        String id = uuid.toString();
-
-        return id;
+        return uuid.toString();
     }
 
     public static void populateFakeDataStorage() {
