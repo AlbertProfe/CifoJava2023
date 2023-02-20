@@ -177,6 +177,7 @@ public class BorrowManager {
 
    public static List<Borrow> selectBorrowByUser(Scanner reader, List<Borrow> borrowsByUser, User user){
       //
+      //
       List<Borrow> selectedBorrows = new ArrayList<Borrow>();
       //
       System.out.println("\n" + user.getName() + " has " + borrowsByUser.size() + " borrows");
