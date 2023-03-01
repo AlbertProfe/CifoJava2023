@@ -6,7 +6,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Person {
+public class Person extends Member implements GeneralOperations {
 
     public String name;
+
+    @Override
+    public void searchBooks() {
+
+    }
 }
