@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Librarian Domain</title>
+</head>
+<body>
+
+<h4>Librarian Domain</h4>
+<p th:text=" ${todayDate} "  >  </p>
+
+<table>
+    <tr th:each = " librarian:${librarians}">
+        <td th:text="${librarian} "> </td>
+    </tr>
+</table>
+
+<p>
+    <a th:href="@{/createFakeLibrarians(qty=10)}"> Create 10 fake Librarians</a>
+</p>
+
+<p>
+    <a th:href="@{/home}"> Home</a>
+</p>
+
+</body>
+</html>

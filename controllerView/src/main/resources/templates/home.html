@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Controller Example</title>
+</head>
+<body>
+
+<h4>Hi Quarto - Java Boot - React - Git - Scrum - Class</h4>
+
+<p th:text=" ${todayDate} "  >  </p>
+<h5 th:text="#{welcome.message}"></h5>
+
+
+<p>
+    <a th:href="@{/user/users}"> Go to user domain</a>
+</p>
+
+<p>
+    <a th:href="@{/librarian/librarians}"> Go to librarian domain</a>
+</p>
+
+</body>
+</html>

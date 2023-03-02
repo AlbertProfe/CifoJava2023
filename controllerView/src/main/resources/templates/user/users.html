@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users Domain</title>
+</head>
+<body>
+
+<h4>User Domain</h4>
+<p th:text=" ${todayDate} "  >  </p>
+
+
+<table>
+    <tr th:each = " user:${users}">
+        <td th:text="${user.value}"> </td>
+        <td >Detail</td>
+        <td >Delete</td>
+    </tr>
+</table>
+
+<p>
+    <a th:href="@{/createFakeUsers(qty=10)}"> Create 10 fake users</a>
+</p>
+
+<p>
+    <a th:href="@{/home}"> Home</a>
+</p>
+
+</body>
+</html>
