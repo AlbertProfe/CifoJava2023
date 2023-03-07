@@ -13,6 +13,13 @@ public class UserService {
         Utils.populateFakeUsers(20, users);
     }
 
+    public  void createUser(User user) {
+
+        String  newUserId = Utils.createUUID();
+        user.setUserId(newUserId);
+        users.put(newUserId, user);
+    }
+
     public HashMap<String, User> getAllUsers (){
 
         return users;

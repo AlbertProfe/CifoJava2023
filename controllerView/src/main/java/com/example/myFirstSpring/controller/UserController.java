@@ -1,5 +1,6 @@
 package com.example.myFirstSpring.controller;
 
+import com.example.myFirstSpring.model.User;
 import com.example.myFirstSpring.service.UserService;
 import com.example.myFirstSpring.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,20 @@ public class UserController {
         return "user/users";
     }
 
-/*    @RequestMapping
-    public String sendUserForm(){
+    @RequestMapping("/createUser")
+    public String createUser(User user){
 
-        return "";
+        userService.createUser(user);
+
+        return "redirect:users";
+        //return "user/userCreationResult";
     }
 
-    @RequestMapping
-    public String createUser(){
+    @RequestMapping("/emptyForm")
+    public String sendUserForm(){
 
-        return "";
-    }*/
+        return "user/userForm";
+    }
 
     @RequestMapping("/createFakeUsers")
     public String createFakeUsers (@RequestParam("qty") int fakeusersnumber) {
