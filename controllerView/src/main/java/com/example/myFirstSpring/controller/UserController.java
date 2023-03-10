@@ -47,7 +47,7 @@ public class UserController {
 
         if (userFound != null){
             model.addAttribute("userFromController", userFound);
-        model.addAttribute("message", "User  found");}
+            model.addAttribute("message", "User  found");}
         else
             model.addAttribute("message", "User not found");
 
@@ -55,12 +55,13 @@ public class UserController {
     }
 
     @PostMapping("/updateUser/{idFromView}")
-    public String updateUser(@PathVariable("idFromView") String id, User user) {
+    public String updateUser(@PathVariable("idFromView") String id,
+                             User updatedUser) {
 
         User userFound = userService.findUserById(id);
 
         if (userFound != null) {
-            userService.updateUserById(userFound);
+            userService.updateUserByUser(updatedUser);
             return "redirect:/user/users";
         } else return "user/userNotFound";
 

@@ -38,7 +38,7 @@ public class UserService {
         return users.getOrDefault(id, null);
     }
 
-    public void updateUserById(User userFound) {
+    public void updateUserByUser(User userFound) {
         users.put(userFound.getUserId(), userFound);
     }
 }
