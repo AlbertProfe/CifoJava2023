@@ -22,6 +22,7 @@ public class UserController {
     public String getAllUsers(Model model){
         // fetch all users, add to model
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("totalUsers", "Total users: " + userService.getAllUsers().size());
         return "user/users";
     }
     @RequestMapping("/createUser")
@@ -62,6 +63,19 @@ public class UserController {
 
         if (userFound != null) {
             userService.updateUserByUser(updatedUser);
+            return "redirect:/user/users";
+        } else return "user/userNotFound";
+
+
+    }
+
+    @RequestMapping("/deleteUser")
+    public String deleteUser(@RequestParam("idFromView") String id) {
+
+        User userFound = userService.findUserById(id);
+
+        if (userFound != null) {
+            userService.deleteUserById(id);
             return "redirect:/user/users";
         } else return "user/userNotFound";
 

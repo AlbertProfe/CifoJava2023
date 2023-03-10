@@ -41,4 +41,8 @@ public class UserService {
     public void updateUserByUser(User userFound) {
         users.put(userFound.getUserId(), userFound);
     }
+
+    public void deleteUserById(String id) {
+        users.remove(id);
+    }
 }

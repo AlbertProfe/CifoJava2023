@@ -9,13 +9,14 @@
 <h4>User Domain</h4>
 <p th:text=" ${todayDate} "  >  </p>
 
+<p th:text=" ${totalUsers} "  >  </p>
 
 <table>
     <tr th:each = " user:${users}">
         <td th:text="${user.value.name}"> </td>
         <td th:text="${user.value.address}"> </td>
         <td th:text="${user.value.age}"> </td>
-        <td >Delete</td>
+        <td ><a th:href="@{deleteUser(idFromView=${user.value.userId})}">Delete</a></td>
         <td><a th:href="@{packedUserForm(idFromView=${user.value.userId})}">Update</a></td>
         <td >Delete</td>
     </tr>
