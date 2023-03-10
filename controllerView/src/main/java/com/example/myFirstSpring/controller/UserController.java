@@ -6,6 +6,8 @@ import com.example.myFirstSpring.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,7 +24,6 @@ public class UserController {
         model.addAttribute("users", userService.getAllUsers());
         return "user/users";
     }
-
     @RequestMapping("/createUser")
     public String createUser(User user){
 
@@ -36,6 +37,34 @@ public class UserController {
     public String sendUserForm(){
 
         return "user/userForm";
+    }
+
+    @RequestMapping("/packedUserForm")
+    public String packedUserForm(@RequestParam("idFromView") String id ,
+                                 Model model){
+
+        User userFound = userService.findUserById(id);
+
+        if (userFound != null){
+            model.addAttribute("userFromController", userFound);
+        model.addAttribute("message", "User  found");}
+        else
+            model.addAttribute("message", "User not found");
+
+        return "user/userToUpdateForm";
+    }
+
+    @PostMapping("/updateUser/{idFromView}")
+    public String updateUser(@PathVariable("idFromView") String id, User user) {
+
+        User userFound = userService.findUserById(id);
+
+        if (userFound != null) {
+            userService.updateUserById(userFound);
+            return "redirect:/user/users";
+        } else return "user/userNotFound";
+
+
     }
 
     @RequestMapping("/createFakeUsers")

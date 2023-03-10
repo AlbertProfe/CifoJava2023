@@ -12,9 +12,11 @@
 
 <table>
     <tr th:each = " user:${users}">
-        <td th:text="${user.value}"> </td>
+        <td th:text="${user.value.name}"> </td>
+        <td th:text="${user.value.address}"> </td>
+        <td th:text="${user.value.age}"> </td>
         <td >Detail</td>
-        <td >Update</td>
+        <td><a th:href="@{packedUserForm(idFromView=${user.value.userId})}">Update</a></td>
         <td >Delete</td>
     </tr>
 </table>
@@ -26,8 +28,6 @@
 <p>
     <a th:href="@{/user/emptyForm}">Add new user to HashMap</a>
 </p>
-
-
 
 <p>
     <a th:href="@{/home}">Home</a>

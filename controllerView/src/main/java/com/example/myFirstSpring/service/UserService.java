@@ -25,7 +25,6 @@ public class UserService {
         return users;
     }
 
-
     public User createUser(){
 
         User newUser = new User();
@@ -33,5 +32,13 @@ public class UserService {
 
 
         return newUser;
+    }
+
+    public User findUserById(String id) {
+        return users.getOrDefault(id, null);
+    }
+
+    public void updateUserById(User userFound) {
+        users.put(userFound.getUserId(), userFound);
     }
 }
