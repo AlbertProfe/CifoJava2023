@@ -82,12 +82,24 @@ public class UserController {
 
     }
 
+    @RequestMapping("/detailUser")
+    public String detailUser(@RequestParam("idFromView") String id, Model model) {
+
+        User userFound = userService.findUserById(id);
+
+        if (userFound != null) {
+            model.addAttribute("user",userFound );
+            return "/user/detailUser";
+        } else return "user/userNotFound";
+
+
+    }
+
+
     @RequestMapping("/createFakeUsers")
     public String createFakeUsers (@RequestParam("qty") int fakeusersnumber) {
-
-        Utils.populateFakeUsers(fakeusersnumber,userService.getAllUsers());
-
-        return "redirect:home";
+        UserService.populateFakeUsers(fakeusersnumber);
+        return "redirect:/user/users";
     }
 
 

@@ -18,12 +18,15 @@
         <td th:text="${user.value.age}"> </td>
         <td ><a th:href="@{deleteUser(idFromView=${user.value.userId})}">Delete</a></td>
         <td><a th:href="@{packedUserForm(idFromView=${user.value.userId})}">Update</a></td>
-        <td >Delete</td>
+        <td><a th:href="@{detailUser(idFromView=${user.value.userId})}">Detail</a></td>
+        <td >Borrow</td>
     </tr>
 </table>
 
 <p>
-    <a th:href="@{/createFakeUsers(qty=10)}"> Create 10 fake users</a>
+    <a th:href="@{/user/createFakeUsers(qty=10)}"> Create 10 fake users</a>
+    <a th:href="@{/user/createFakeUsers(qty=50)}"> Create 50 fake users</a>
+    <a th:href="@{/user/createFakeUsers(qty=100)}"> Create 100 fake users</a>
 </p>
 
 <p>

@@ -13,6 +13,10 @@ public class UserService {
         Utils.populateFakeUsers(20, users);
     }
 
+    public static void populateFakeUsers(int fakeusersnumber) {
+        Utils.populateFakeUsers(fakeusersnumber,users);
+    }
+
     public  void createUser(User user) {
 
         String  newUserId = Utils.createUUID();
