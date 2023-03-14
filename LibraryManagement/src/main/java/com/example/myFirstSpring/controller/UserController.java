@@ -7,10 +7,9 @@ import com.example.myFirstSpring.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -104,10 +103,21 @@ public class UserController {
 
         if (userFound != null) {
             model.addAttribute("books",bookService.getAllBooks() );
+            model.addAttribute("user", userFound);
             return "/user/booksToSelect";
         } else return "user/userNotFound";
 
 
+    }
+
+    @RequestMapping(value = "/selectedBooks/{userId}", method = RequestMethod.POST)
+    public String selectedBooks(@PathVariable("userId") String userId, Model model, @RequestParam("selectedBooks") List<String> ids){
+
+        User userFound = userService.findUserById(userId);
+        model.addAttribute("user", userFound);
+        model.addAttribute("bookIds", ids);
+
+        return "user/borrowConfirmation";
     }
 
     @RequestMapping("/createFakeUsers")

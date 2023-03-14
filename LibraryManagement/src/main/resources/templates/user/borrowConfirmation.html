@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h4>Borrow Confirmation</h4>
+
+<h3>User</h3>
+<p th:text=" ${user} "  >  </p>
+
+<h3>Books</h3>
+<p>Qty. books: <span th:text=" ${bookIds.size} "  >  </span></p>
+<p th:text=" ${bookIds} "  >  </p>
+
+<p>
+    <a th:href="@{/home}">Home</a>
+</p>
+<p>
+    <a th:href="@{/user/users}"> Go to user domain</a>
+</p>
+</body>
+</html>

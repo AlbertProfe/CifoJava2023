@@ -10,6 +10,8 @@
 <p th:text=" ${todayDate} "  >  </p>
 
 
+<form th:action="@{/user/selectedBooks/{userId}(userId=${user.userId}) }"  method="post">
+    <p> <input type="submit" value="Send"></p>
 <table>
     <tr th:each = " book:${books}">
         <td><input type="checkbox" name="selectedBooks" th:value="${book.value.bookId}"/></td>
@@ -19,12 +21,10 @@
         <td th:text="${book.value.author}"> </td>
         <td th:text="${book.value.pages}"> </td>
         <td th:text="${book.value.isbn}"> </td>
-
-
-
     </tr>
 </table>
-
+    <p> <input type="submit" value="Send"></p>
+</form>
 
 <p>
     <a th:href="@{/home}">Home</a>
