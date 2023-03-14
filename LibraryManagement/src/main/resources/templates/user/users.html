@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users Domain</title>
+</head>
+<body>
+
+<h4>User Domain</h4>
+<p th:text=" ${todayDate} "  >  </p>
+
+<p th:text=" ${totalUsers} "  >  </p>
+
+<table>
+    <tr th:each = " user:${users}">
+        <td th:text="${user.value.name}"> </td>
+        <td th:text="${user.value.address}"> </td>
+        <td th:text="${user.value.age}"> </td>
+        <td ><a th:href="@{deleteUser(idFromView=${user.value.userId})}">Delete</a></td>
+        <td><a th:href="@{packedUserForm(idFromView=${user.value.userId})}">Update</a></td>
+        <td><a th:href="@{detailUser(idFromView=${user.value.userId})}">Detail</a></td>
+        <td><a th:href="@{books(idFromView=${user.value.userId})}">Borrow</a></td>
+    </tr>
+</table>
+
+<p>
+    <a th:href="@{/user/createFakeUsers(qty=10)}"> Create 10 fake users</a>
+    <a th:href="@{/user/createFakeUsers(qty=50)}"> Create 50 fake users</a>
+    <a th:href="@{/user/createFakeUsers(qty=100)}"> Create 100 fake users</a>
+</p>
+
+<p>
+    <a th:href="@{/user/emptyForm}">Add new user to HashMap</a>
+</p>
+
+<p>
+    <a th:href="@{/home}">Home</a>
+</p>
+
+</body>
+</html>
