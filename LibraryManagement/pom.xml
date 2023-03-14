@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>controllerView</artifactId>
+	<artifactId>LibraryManagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>controllerView</name>
-	<description>Demo project for Spring Boot View and Controller</description>
+	<description>Demo project for Spring Boot Composition and TH</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
