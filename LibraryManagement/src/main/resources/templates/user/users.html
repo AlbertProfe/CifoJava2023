@@ -8,7 +8,8 @@
 <body>
 
 <h4>User Domain</h4>
-<p th:text=" ${todayDate} "  >  </p>
+<p> Logged as:
+    <span th:text=" ${session.librarianId} "  >  </span></p>
 <p th:text=" ${totalUsers} "  >  </p>
 
 
