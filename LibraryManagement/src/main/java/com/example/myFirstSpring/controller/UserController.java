@@ -3,13 +3,14 @@ package com.example.myFirstSpring.controller;
 import com.example.myFirstSpring.model.User;
 import com.example.myFirstSpring.service.BookService;
 import com.example.myFirstSpring.service.UserService;
-import com.example.myFirstSpring.utils.Utils;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -19,6 +20,7 @@ public class UserController {
     UserService userService;
     @Autowired
     BookService bookService;
+
 
     @RequestMapping("/users")
     public String getAllUsers(Model model){
@@ -60,6 +62,7 @@ public class UserController {
     @PostMapping("/updateUser/{idFromView}")
     public String updateUser(@PathVariable("idFromView") String id,
                              User updatedUser) {
+
 
         User userFound = userService.findUserById(id);
 
@@ -125,6 +128,9 @@ public class UserController {
         UserService.populateFakeUsers(fakeusersnumber);
         return "redirect:/user/users";
     }
+
+
+
 
 
 

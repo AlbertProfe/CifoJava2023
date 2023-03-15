@@ -9,9 +9,25 @@
 <h4>Hi Quarto - Java Boot - React - Git - Scrum - Class</h4>
 
 <p th:text=" ${todayDate} "  >  </p>
-<h5 th:text="#{welcome.message}"></h5>
+<p th:text="#{welcome.message}"></p>
+
+</br>
+
+<p>sessionId:
+<span th:text=" ${sessionId} "  >  </span></p>
+<p>sessionType:
+<span th:text=" ${sessionType} "  >  </span></p>
+<p>sessionCount:
+<span th:text=" ${sessionCount} "  >  </span></p>
+<p>requestCount:
+<span th:text=" ${requestCount} "  >  </span></p>
+
+</br>
+<p>httpServletRequest headers:</p>
+<p> <span th:text=" ${httpServletRequest} "  >  </span></p>
 
 
+</br>
 <p>
     <a th:href="@{/user/users}"> Go to user domain</a>
 </p>

@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Users Domain</title>
+
 </head>
 <body>
 
 <h4>User Domain</h4>
 <p th:text=" ${todayDate} "  >  </p>
-
 <p th:text=" ${totalUsers} "  >  </p>
 
-<table>
+
+<input type="text" id="myInput"
+       onkeyup="myFunction()" placeholder="Search for names.."
+       title="Type in a name">
+
+<table id="myTable">
     <tr th:each = " user:${users}">
         <td th:text="${user.value.name}"> </td>
         <td th:text="${user.value.address}"> </td>
@@ -36,6 +41,9 @@
 <p>
     <a th:href="@{/home}">Home</a>
 </p>
+
+</p>
+<script type="text/javascript" th:src="@{/js/filter-Tables.js}" ></script>
 
 </body>
 </html>

@@ -10,12 +10,18 @@
 <p th:text=" ${todayDate} "  >  </p>
 
 
+
+
 <form th:action="@{/user/selectedBooks/{userId}(userId=${user.userId}) }"  method="post">
     <p> <input type="submit" value="Send"></p>
-<table>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for titles.." title="Type in a title">
+
+    <table id="myTable">
     <tr th:each = " book:${books}">
-        <td><input type="checkbox" name="selectedBooks" th:value="${book.value.bookId}"/></td>
+
         <td th:text="${book.value.title}"> </td>
+        <td><input type="checkbox" name="selectedBooks" th:value="${book.value.bookId}"/></td>
         <td th:text="${book.value.bookId}"> </td>
         <td th:text="${book.value.publishedYear}"> </td>
         <td th:text="${book.value.author}"> </td>
@@ -32,6 +38,25 @@
 <p>
     <a th:href="@{/user/users}"> Go to user domain</a>
 </p>
-
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 </body>
 </html>
