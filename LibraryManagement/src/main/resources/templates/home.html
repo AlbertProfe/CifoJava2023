@@ -8,23 +8,21 @@
 
 <h4>Hi Quarto - Java Boot - React - Git - Scrum - Class</h4>
 
-<p th:text=" ${todayDate} "  >  </p>
-<p th:text="#{welcome.message}"></p>
+<p th:text=" ${session.todayDate} "  >  </p>
+
 
 </br>
 
 <p>sessionId:
-<span th:text=" ${sessionId} "  >  </span></p>
-<p>sessionType:
-<span th:text=" ${sessionType} "  >  </span></p>
+<span th:text=" ${session.sessionId} "  >  </span></p>
 <p>sessionCount:
-<span th:text=" ${sessionCount} "  >  </span></p>
+<span th:text=" ${session.sessionCount} "  >  </span></p>
 <p>requestCount:
-<span th:text=" ${requestCount} "  >  </span></p>
+<span th:text=" ${session.requestCount} "  >  </span></p>
 
 </br>
 <p>httpServletRequest headers:</p>
-<p> <span th:text=" ${httpServletRequest} "  >  </span></p>
+<p> <span th:text=" ${session.httpServletRequestHeaders} "  >  </span></p>
 
 </br>
 <p>Librarian:

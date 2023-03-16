@@ -8,14 +8,57 @@
 
 <h4>Please Log in: choose rol</h4>
 
-<p>
-    <a th:href="@{/loginUser}">User</a>
-</p>
+<p th:text="${session.isLogin}"></p>
+<div th:if="${session.isLogin}">
 
-<p>
-    <a th:href="@{/loginLibrarian}">Librarian</a>
-</p>
+    <p>
+        <a th:href="@{logout}"> Log out</a>
+    </p>
 
 </div>
+
+<div th:unless="${session.isLogin}">
+    <form   th:action="@{/home}"
+            method="post">
+        <input  type="hidden"
+                name="userIdFromSelect"
+                id="userIdFromSelect"
+                value="false"></p>
+
+        <label for="librarianSelection">Choose Librarian to simulate a fake log in</label>
+
+        <select id="librarianSelection" name="librarianIdFromSelect">
+            <option>No librarian selected</option>
+            <option th:each="librarian : ${librarians}"
+                    th:value="${librarian.librarianId}"
+                    th:text="${librarian.name + '-' + librarian.librarianId}"
+            > Librarian </option>
+
+        </select>
+        <button type="submit"> log in as librarian</button>
+
+    </form>
+
+
+    <form   th:action="@{/home}"
+            method="post">
+        <input  type="hidden"
+                name="librarianIdFromSelect"
+                id="librarianIdFromSelect"
+                value="false"></p>
+        <label for="userSelection">Choose User to simulate a fake log in</label>
+
+        <select id="userSelection" name="userIdFromSelect">
+            <option>No user selected</option>
+            <option th:each="user : ${users}"
+                    th:value="${user.userId}"
+                    th:text="${user.name + '-' + user.userId}"
+            > User </option>
+        </select>
+
+        <button type="submit"> log in as user</button>
+    </form>
+</div>
+
 </body>
 </html>
