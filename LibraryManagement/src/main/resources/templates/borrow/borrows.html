@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrows domain</title>
+</head>
+<body>
+
+<h4>Borrows Domain</h4>
+<p th:text=" ${todayDate} "  >  </p>
+<p> Logged as:
+    <span th:text=" ${session.librarianId} "  >  </span></p>
+<p th:text=" ${totalBorrows} "  >  </p>
+
+
+<input type="text" id="myInput"
+       onkeyup="myFunction()" placeholder="Search for borrow.."
+       title="Type in a borrow">
+
+<table id="myTable">
+    <tr th:each = " borrow:${borrows}">
+        <td th:text="${borrow.value.borrowId}"> </td>
+
+        <td>Delete</td>
+        <td>Detail</td>
+        <td>Update</td>
+        <td>Return book</td>
+        <td>Rennovation</td>
+    </tr>
+</table>
+
+<p>
+    <a th:href="@{/borrow/emptyForm}">Add new borrow to HashMap</a>
+</p>
+
+</body>
+</html>

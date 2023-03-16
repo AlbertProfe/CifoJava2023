@@ -1,14 +1,18 @@
 package com.example.myFirstSpring.utils;
 
-
 import com.example.myFirstSpring.model.Book;
+import com.example.myFirstSpring.model.Borrow;
 import com.example.myFirstSpring.model.Librarian;
 import com.example.myFirstSpring.model.User;
 import com.github.javafaker.Faker;
-
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.*;
+
+import static com.example.myFirstSpring.service.BookService.books;
+import static com.example.myFirstSpring.service.UserService.users;
 
 public class Utils {
 
@@ -25,12 +29,12 @@ public class Utils {
 
         UUID uuid = UUID.randomUUID();
         //System.out.println("UUID generated ( version - " + uuid.version() + ") : " +  uuid);
-        String isbn = uuid.toString().toUpperCase().replace("-","");
+        String isbn = uuid.toString().toUpperCase().replace("-", "");
 
         return isbn;
     }
 
-    public static HashMap<String, User> populateFakeUsers(int number, HashMap<String, User> users ) {
+    public static HashMap<String, User> populateFakeUsers(int number, HashMap<String, User> users) {
         // create faker object to use as
         // builder for user
         Faker faker = new Faker();
@@ -56,10 +60,10 @@ public class Utils {
 
         }
         //System.out.println(users.size());
-        return  users;
+        return users;
     }
 
-    public static HashMap<String, Librarian> populateFakeLibrarians(int number, HashMap<String, Librarian> librarians ) {
+    public static HashMap<String, Librarian> populateFakeLibrarians(int number, HashMap<String, Librarian> librarians) {
         // create faker object to use as
         // builder for user
         Faker faker = new Faker();
@@ -87,14 +91,14 @@ public class Utils {
             String seniority = faker.job().seniority();
             newLibrarian.setSeniority(seniority);
 
-            double salary = faker.number().numberBetween(50000,100000);
+            double salary = faker.number().numberBetween(50000, 100000);
             newLibrarian.setSalary(salary);
 
             librarians.put(librarianId, newLibrarian);
 
         }
         //System.out.println(users.size());
-        return  librarians;
+        return librarians;
     }
 
 
@@ -123,15 +127,62 @@ public class Utils {
             int pages = faker.number().numberBetween(250, 999);
             newBook.setPages(pages);
 
-            int publishedYear = faker.number().numberBetween(1800,2020);
+            int publishedYear = faker.number().numberBetween(1800, 2020);
             newBook.setPublishedYear(publishedYear);
-
 
 
             books.put(bookId, newBook);
 
         }
         //System.out.println(books.size());
-        return  books;
+        return books;
     }
+
+    public static void populateFakeBorrows(int i, HashMap<String, Borrow> borrows) {
+
+        // to-do: numb3r will be a limit, for security
+        Borrow newBorrow;
+        for (User user : users.values()) {
+            //
+            for (Book book : books.values()) {
+                //
+                newBorrow = new Borrow();
+                String newBorrowId = Utils.createUUID();
+                //
+                newBorrow.setUser(user);
+                newBorrow.setBook(book);
+                newBorrow.setBorrowId(newBorrowId);
+                newBorrow.setInitialBorrow(new Date());
+                newBorrow.setDueDate(new Date());
+                newBorrow.setBorrowStatus("CLOSED");
+
+                borrows.put(newBorrowId, newBorrow);
+                newBorrow = null;
+
+            }
+        }
+
+        Optional<User> optionalUser = users.values().stream().findFirst();
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            for (Book book : books.values()) {
+                //
+                newBorrow = new Borrow();
+                String newBorrowId = Utils.createUUID();
+                //
+                newBorrow.setUser(user);
+                newBorrow.setBook(book);
+                newBorrow.setBorrowId(newBorrowId);
+                newBorrow.setInitialBorrow(new Date());
+                newBorrow.setDueDate(new Date());
+                newBorrow.setBorrowStatus("PROGRESS");
+
+                borrows.put(newBorrowId, newBorrow);
+                newBorrow = null;
+            }
+        }
+
+
+    }
+
 }

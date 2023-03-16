@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management</title>
+</head>
+<body>
+
+<h4>Please Log in User</h4>
+
+
+</br>
+
+<form   th:action="@{/home}"
+        method="post">
+    <input  type="hidden"
+            name="librarianIdFromSelect"
+            id="librarianIdFromSelect"
+            value="false"></p>
+    <label for="userSelection">Choose User to simulate a fake log in</label>
+
+    <select id="userSelection" name="userIdFromSelect">
+        <option>No user selected</option>
+        <option th:each="user : ${users}"
+                th:value="${user.userId}"
+                th:text="${user.name + '-' + user.userId}"
+        > User </option>
+    </select>
+
+    <button type="submit"> log in as user</button>
+
+</form>
+
+</div>
+</body>
+</html>

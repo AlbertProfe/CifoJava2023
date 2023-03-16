@@ -3,6 +3,7 @@ package com.example.myFirstSpring.controller;
 
 import com.example.myFirstSpring.model.Librarian;
 import com.example.myFirstSpring.service.LibrarianService;
+import com.example.myFirstSpring.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +24,35 @@ public class HomeController {
 
     @Autowired
     LibrarianService librarianService;
-
+    @Autowired
+    UserService userService;
     private final Set<String> sessionIds = Collections.synchronizedSet(new HashSet<>());
 
-    @RequestMapping("/login")
-    public String getLogin(Model model) {
+    @RequestMapping({"/","/login"})
+    public String getLogin() {
+        return "login/login";
+    }
 
+    @RequestMapping("/loginUser")
+    public String getLoginUser(Model model) {
+        model.addAttribute("users", userService.getAllUsers().values());
+        return "login/loginUser";
+    }
+
+    @RequestMapping("/loginLibrarian")
+    public String getLoginLibrarian(Model model) {
         model.addAttribute("librarians", librarianService.getAllLibrarians().values());
-
-        return "login";
+        return "login/loginLibrarian";
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     public String getHome(HttpSession session,Model model, HttpServletRequest request,
-                     @RequestParam("librarianIdFromSelect") String librarianId){
-
+                     @RequestParam("librarianIdFromSelect") String librarianId,
+                    @RequestParam("userIdFromSelect") String userId){
 
         session.setAttribute("librarianId", librarianId);
-
+        session.setAttribute("userId", userId);
+        session.setAttribute("session-creation-timestamp", new Date().toString());
         model.addAttribute("todayDate", new Date().toString());
 
         this.sessionIds.add(session.getId());
@@ -50,8 +62,6 @@ public class HomeController {
         model.addAttribute("sessionCount", this.sessionIds.size());
         model.addAttribute("requestCount", getRequestCount(session));
 
-
-
         Map<String, String> map = new HashMap<String, String>();
 
         Enumeration headerNames = request.getHeaderNames();
@@ -60,15 +70,10 @@ public class HomeController {
             String value = request.getHeader(key);
             map.put(key, value);
         }
-
         model.addAttribute("httpServletRequest", map);
-
-
 
         return "home";
     }
-
-
 
     private Object getRequestCount(HttpSession session) {
 
@@ -81,6 +86,5 @@ public class HomeController {
 
     return requestCount;
     }
-
 
 }
