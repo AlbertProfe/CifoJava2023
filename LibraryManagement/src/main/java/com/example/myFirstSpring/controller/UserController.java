@@ -3,7 +3,6 @@ package com.example.myFirstSpring.controller;
 import com.example.myFirstSpring.model.User;
 import com.example.myFirstSpring.service.BookService;
 import com.example.myFirstSpring.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

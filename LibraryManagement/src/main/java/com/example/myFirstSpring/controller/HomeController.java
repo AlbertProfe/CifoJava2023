@@ -32,7 +32,8 @@ public class HomeController {
     }
 
     @RequestMapping("/home")
-    public String getHome(Model model) {
+    public String getHome(Model model, HttpSession session) {
+        session.setAttribute("requestCount", getRequestCount(session));
         return "home";
     }
 
@@ -48,6 +49,8 @@ public class HomeController {
                      @RequestParam("librarianIdFromSelect") String librarianId,
                     @RequestParam("userIdFromSelect") String userId){
 
+        session.setAttribute("requestCount", getRequestCount(session));
+
         if (!((boolean) session.getAttribute("isLogin"))) {
             this.sessionIds.add(session.getId());
 
@@ -55,7 +58,7 @@ public class HomeController {
             session.setAttribute("userId", userId);
             session.setAttribute("session-creation-timestamp", new Date().toString());
             session.setAttribute("todayDate", new Date().toString());
-            session.setAttribute("requestCount", getRequestCount(session));
+
             session.setAttribute("sessionId", session.getId());
             session.setAttribute("sessionCount", this.sessionIds.size());
 
@@ -70,6 +73,7 @@ public class HomeController {
 
             session.setAttribute("httpServletRequestHeaders", headerNamesMap);
             session.setAttribute("isLogin", true);
+
             return "redirect:home";
         } else {
             return "redirect:/";

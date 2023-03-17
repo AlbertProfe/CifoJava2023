@@ -5,8 +5,11 @@ import com.example.myFirstSpring.model.User;
 import com.example.myFirstSpring.utils.Utils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+
 @Service
 public class BorrowService {
 
@@ -20,7 +23,22 @@ public class BorrowService {
         return  borrows;
     }
 
+    public HashMap<String, Borrow>  findBorrowByUserId(String userid) {
+        //
+        HashMap<String, Borrow>  borrowsByUser = new HashMap<>();
+            for(Borrow borrow: borrows.values()) {
+                //
+                String userIdFromBorrow = borrow.getUser().getUserId();
+                boolean userIdCheck =  userIdFromBorrow.equals(userid);
+                boolean statusCheck =  borrow.getBorrowStatus().equals("PROGRESS");
+                //
+                if (userIdCheck && statusCheck) {
+                    borrowsByUser.put( borrow.getBorrowId(),borrow);
+                }
+            }
 
+            return borrowsByUser;
+    }
 
 
 /*

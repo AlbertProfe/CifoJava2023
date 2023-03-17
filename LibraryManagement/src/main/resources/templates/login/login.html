@@ -3,62 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <title>Library Management</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        .row {
+          display: flex;
+        }
+
+        /* Create two equal columns that sits next to each other */
+        .column {
+          flex: 50%;
+          padding: 10px;
+          height: 300px; /* Should be removed. Only for demonstration */
+        }
+    </style>
 </head>
 <body>
 
-<h4>Please Log in: choose rol</h4>
+<div class="row">
+    <div class="column">
 
-<p th:text="${session.isLogin}"></p>
-<div th:if="${session.isLogin}">
+    </div>
+    <div class="column">
+        <div th:if="${session.isLogin}">
+            <h4>Log out:</h4>
+            <p>
+                <a th:href="@{logout}"> Log out</a>
+            </p>
 
-    <p>
-        <a th:href="@{logout}"> Log out</a>
-    </p>
+        </div>
+            <div th:unless="${session.isLogin}">
+                <h4>Please Log in: choose rol</h4>
+                <form   th:action="@{/home}"
+                        method="post">
+                    <input  type="hidden"
+                            name="userIdFromSelect"
+                            id="userIdFromSelect"
+                            value="false"></p>
 
+                    <label for="librarianSelection">Choose Librarian to simulate a fake log in</label>
+
+                    <select id="librarianSelection" name="librarianIdFromSelect">
+                        <option>No librarian selected</option>
+                        <option th:each="librarian : ${librarians}"
+                                th:value="${librarian.librarianId}"
+                                th:text="${librarian.name + '-' + librarian.librarianId}"
+                        > Librarian </option>
+
+                    </select>
+                    <p>
+                        <button type="submit"> log in as librarian</button></p>
+
+                </form>
+                </br></br>
+
+                <form   th:action="@{/home}"
+                        method="post">
+                    <input  type="hidden"
+                            name="librarianIdFromSelect"
+                            id="librarianIdFromSelect"
+                            value="false"></p>
+                    <label for="userSelection">Choose User to simulate a fake log in</label>
+
+                    <select id="userSelection" name="userIdFromSelect">
+                        <option>No user selected</option>
+                        <option th:each="user : ${users}"
+                                th:value="${user.userId}"
+                                th:text="${user.name + '-' + user.userId}"
+                        > User </option>
+                    </select>
+                    <p>
+                        <button type="submit"> log in as user</button></p>
+                </form>
+            </div>
+
+    </div>
+    <div class="column">
+
+    </div>
 </div>
 
-<div th:unless="${session.isLogin}">
-    <form   th:action="@{/home}"
-            method="post">
-        <input  type="hidden"
-                name="userIdFromSelect"
-                id="userIdFromSelect"
-                value="false"></p>
-
-        <label for="librarianSelection">Choose Librarian to simulate a fake log in</label>
-
-        <select id="librarianSelection" name="librarianIdFromSelect">
-            <option>No librarian selected</option>
-            <option th:each="librarian : ${librarians}"
-                    th:value="${librarian.librarianId}"
-                    th:text="${librarian.name + '-' + librarian.librarianId}"
-            > Librarian </option>
-
-        </select>
-        <button type="submit"> log in as librarian</button>
-
-    </form>
 
 
-    <form   th:action="@{/home}"
-            method="post">
-        <input  type="hidden"
-                name="librarianIdFromSelect"
-                id="librarianIdFromSelect"
-                value="false"></p>
-        <label for="userSelection">Choose User to simulate a fake log in</label>
 
-        <select id="userSelection" name="userIdFromSelect">
-            <option>No user selected</option>
-            <option th:each="user : ${users}"
-                    th:value="${user.userId}"
-                    th:text="${user.name + '-' + user.userId}"
-            > User </option>
-        </select>
-
-        <button type="submit"> log in as user</button>
-    </form>
-</div>
 
 </body>
 </html>

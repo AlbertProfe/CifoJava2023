@@ -9,12 +9,28 @@
 <h4>Librarian Domain</h4>
 <p th:text=" ${todayDate} "  >  </p>
 
-<table>
+<input type="text" id="myInput"
+       onkeyup="myFunction()" placeholder="Search for names.."
+       title="Type in a name">
+
+<table id="myTable">
     <tr th:each = " librarian:${librarians}">
-        <td th:text="${librarian} "> </td>
+        <td th:text="${librarian.value.name}"> </td>
+        <td th:text="${librarian.value.address}"> </td>
+        <td th:text="${librarian.value.age}"> </td>
+        <td th:text="${librarian.value.position}"> </td>
+        <td th:text="${librarian.value.seniority}"> </td>
+        <td th:text="${librarian.value.salary}"> </td>
+        <td ><a th:href="@{deletelibrarian(idFromView=${librarian.value.librarianId})}">Delete</a></td>
+        <td><a th:href="@{packedUserForm(idFromView=${librarian.value.librarianId})}">Update</a></td>
+        <td><a th:href="@{detaillibrarian(idFromView=${librarian.value.librarianId})}">Detail</a></td>
+
+
     </tr>
 </table>
-
+<p>
+    <a th:href="@{/librarian/emptyForm}">Add new librarian to HashMap</a>
+</p>
 <p>
     <a th:href="@{/createFakeLibrarians(qty=10)}"> Create 10 fake Librarians</a>
 </p>
@@ -22,6 +38,7 @@
 <p>
     <a th:href="@{/home}"> Home</a>
 </p>
+<script type="text/javascript" th:src="@{/js/filter-Tables.js}" ></script>
 
 </body>
 </html>
