@@ -2,6 +2,7 @@ package com.example.myFirstSpring.controller;
 
 import com.example.myFirstSpring.model.User;
 import com.example.myFirstSpring.service.BookService;
+import com.example.myFirstSpring.service.BorrowService;
 import com.example.myFirstSpring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,8 @@ public class UserController {
     UserService userService;
     @Autowired
     BookService bookService;
-
+    @Autowired
+    BorrowService borrowService;
 
     @RequestMapping("/users")
     public String getAllUsers(Model model){
@@ -113,11 +115,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/selectedBooks/{userId}", method = RequestMethod.POST)
-    public String selectedBooks(@PathVariable("userId") String userId, Model model, @RequestParam("selectedBooks") List<String> ids){
+    public String selectedBooks(@PathVariable("userId") String userId, Model model,
+                                @RequestParam("selectedBooks") List<String> selectedBooksIds){
 
         User userFound = userService.findUserById(userId);
         model.addAttribute("user", userFound);
-        model.addAttribute("bookIds", ids);
+        model.addAttribute("bookIds", selectedBooksIds);
+
+        String borrowDataConfirmation = borrowService.createBorrow(userId,selectedBooksIds );
+        model.addAttribute("borrowDataConfirmation", borrowDataConfirmation);
 
         return "user/borrowConfirmation";
     }

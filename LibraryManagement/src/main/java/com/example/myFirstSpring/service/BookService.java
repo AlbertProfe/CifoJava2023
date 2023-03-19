@@ -19,5 +19,9 @@ public class BookService {
         return books;
     }
 
+    public Book findBookById(String id) {
+        return books.getOrDefault(id, null);
+    }
+
 
 }

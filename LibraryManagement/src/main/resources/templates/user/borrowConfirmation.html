@@ -11,9 +11,13 @@
 <h3>User</h3>
 <p th:text=" ${user} "  >  </p>
 
-<h3>Books</h3>
+<h3>Books to Borrow</h3>
 <p>Qty. books: <span th:text=" ${bookIds.size} "  >  </span></p>
 <p th:text=" ${bookIds} "  >  </p>
+
+<h3>User</h3>
+<p th:text=" ${borrowDataConfirmation} "  >  </p>
+
 
 <p>
     <a th:href="@{/home}">Home</a>

@@ -34,7 +34,7 @@ public class Utils {
         return isbn;
     }
 
-    public static HashMap<String, User> populateFakeUsers(int number, HashMap<String, User> users) {
+    public static void populateFakeUsers(int number, HashMap<String, User> users) {
         // create faker object to use as
         // builder for user
         Faker faker = new Faker();
@@ -60,10 +60,9 @@ public class Utils {
 
         }
         //System.out.println(users.size());
-        return users;
     }
 
-    public static HashMap<String, Librarian> populateFakeLibrarians(int number, HashMap<String, Librarian> librarians) {
+    public static void populateFakeLibrarians(int number, HashMap<String, Librarian> librarians) {
         // create faker object to use as
         // builder for user
         Faker faker = new Faker();
@@ -98,11 +97,10 @@ public class Utils {
 
         }
         //System.out.println(users.size());
-        return librarians;
     }
 
 
-    public static HashMap<String, Book> populateFakeBooks(int number, HashMap<String, Book> books) {
+    public static void populateFakeBooks(int number, HashMap<String, Book> books) {
 
         Faker faker = new Faker();
         Book newBook;
@@ -135,7 +133,6 @@ public class Utils {
 
         }
         //System.out.println(books.size());
-        return books;
     }
 
     public static void populateFakeBorrows(int i, HashMap<String, Borrow> borrows) {

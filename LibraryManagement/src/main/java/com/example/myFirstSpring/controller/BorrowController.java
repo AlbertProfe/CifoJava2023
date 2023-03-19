@@ -34,5 +34,13 @@ public class BorrowController {
     }
 
 
+    @RequestMapping("/createBorrow")
+    public String createBorrowByUserId(Model model,
+                                       @RequestParam("idFromView") String userId){
+
+        // to-do
+
+        return "";
+    }
 
 }

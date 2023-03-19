@@ -1,17 +1,21 @@
 package com.example.myFirstSpring.service;
 
+import com.example.myFirstSpring.model.Book;
 import com.example.myFirstSpring.model.Borrow;
 import com.example.myFirstSpring.model.User;
 import com.example.myFirstSpring.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BorrowService {
+
+    @Autowired
+    UserService userService;
+    @Autowired
+    BookService bookService;
 
     public static HashMap<String, Borrow> borrows = new HashMap<>();
 
@@ -20,70 +24,65 @@ public class BorrowService {
     }
 
     public HashMap<String, Borrow> getAllBorrows() {
-        return  borrows;
+        return borrows;
     }
 
-    public HashMap<String, Borrow>  findBorrowByUserId(String userid) {
+    public HashMap<String, Borrow> findBorrowByUserId(String userid) {
         //
-        HashMap<String, Borrow>  borrowsByUser = new HashMap<>();
-            for(Borrow borrow: borrows.values()) {
-                //
-                String userIdFromBorrow = borrow.getUser().getUserId();
-                boolean userIdCheck =  userIdFromBorrow.equals(userid);
-                boolean statusCheck =  borrow.getBorrowStatus().equals("PROGRESS");
-                //
-                if (userIdCheck && statusCheck) {
-                    borrowsByUser.put( borrow.getBorrowId(),borrow);
-                }
+        HashMap<String, Borrow> borrowsByUser = new HashMap<>();
+        for (Borrow borrow : borrows.values()) {
+            //
+            String userIdFromBorrow = borrow.getUser().getUserId();
+            boolean userIdCheck = userIdFromBorrow.equals(userid);
+            boolean statusCheck = borrow.getBorrowStatus().equals("PROGRESS");
+            //
+            if (userIdCheck && statusCheck) {
+                borrowsByUser.put(borrow.getBorrowId(), borrow);
             }
+        }
 
-            return borrowsByUser;
+        return borrowsByUser;
     }
 
 
+    public String createBorrow(String userId, List<String> selectedBooksIds) {
+
+        Date dueDate =  new Date();
+        List<String> borrowsId = new ArrayList<String>();
+
+        for (String bookId : selectedBooksIds){
+            Borrow newBorrow = new Borrow();
+
+            Book book = bookService.findBookById(bookId);
+            if (book != null) newBorrow.setBook(book);
+            else return "Book not found: " + bookId +  " Borrow cancelled";
+
+            User user = userService.findUserById(userId);
+            if (user != null) newBorrow.setUser(user);
+            else return "User not found. Borrow cancelled";
+
+            Date initialBorrowDate = new Date();
+            newBorrow.setInitialBorrow(initialBorrowDate);
+
+            newBorrow.setDueDate(dueDate);
+
+            newBorrow.setBorrowStatus("PROGRESS");
+
+            String borrowId = Utils.createUUID();
+            newBorrow.setBorrowId(borrowId);
+            borrowsId.add(borrowId);
+
+            borrows.put(borrowId, newBorrow);
+
+        }
+
+        return "Your borrow is ok.\n Due Date: " + dueDate.toString() +
+                "\n Borrow ticket: " + borrowsId.toString() ;
+
+    }
+
+}
 /*
-
-    public static String createBorrow(Scanner reader){
-        Borrow newBorrow = new Borrow();
-
-        System.out.println("Introduce user and book Ids");
-        String bookId = askString(reader, "Book id?");
-
-        Book bookFound = books.getOrDefault(bookId, null);
-        if (bookFound==null) {
-            return "Book not found";
-        } else {
-            newBorrow.setBook(bookFound);
-        }
-
-        String userId = askString(reader, "User id?");
-        User userFound = users.getOrDefault(userId, null);
-        if (userFound==null) {
-            return "User not found";
-        } else {
-            newBorrow.setUser(userFound);
-        }
-
-        newBorrow.setDueDate(new Date());
-        newBorrow.setInitialBorrow(new Date());
-
-        newBorrow.setBorrowStatus("PROGRESS");
-
-        String borrowId = Utils.createUUID();
-        newBorrow.setBorrowId(borrowId);
-
-        BorrowManager.borrows.put(borrowId,newBorrow );
-
-        // let s add this borrow to the user
-        // userfound.getBorrows.add(newBorrow);
-
-        return "Your borrow is ok." +
-                "\n\tYour borrowId is: " + borrowId +
-                "\n\tBook Title: " + bookFound.getTitle() +
-                "\n\tUser Name: " + userFound.getName() +
-                "\n\tDue Date: " +  newBorrow.getDueDate();
-    }
-
     public static String returnBook(String inputType,Scanner reader) {
 
         // find Borrow from borrows, if not error string
@@ -221,4 +220,4 @@ public class BorrowService {
 */
 
 
-}
+
