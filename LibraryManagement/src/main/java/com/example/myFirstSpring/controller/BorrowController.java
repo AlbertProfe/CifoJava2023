@@ -23,11 +23,21 @@ public class BorrowController {
         return "borrow/borrows";
     }
 
-    @RequestMapping("/findBorrowByUserId")
-    public String findBorrowByUserId(Model model, @RequestParam("idFromView") String userId){
+    @RequestMapping("/findActiveBorrowByUserId")
+    public String findActiveBorrowByUserId(Model model, @RequestParam("idFromView") String userId){
         // fetch all users, add to model
-        model.addAttribute("borrows", borrowService.findBorrowByUserId(userId));
-        model.addAttribute("totalBorrows", "Total borrows: " + borrowService.findBorrowByUserId(userId).size());
+        model.addAttribute("borrows", borrowService.findBorrowByUserId("ACTIVE", userId));
+        model.addAttribute("totalBorrows", "Total borrows: " + borrowService.findBorrowByUserId("ACTIVE",userId).size());
+        model.addAttribute("userId", userId);
+
+        return "borrow/borrows";
+    }
+
+    @RequestMapping("/findAllBorrowByUserId")
+    public String findAllBorrowByUserId(Model model, @RequestParam("idFromView") String userId){
+        // fetch all users, add to model
+        model.addAttribute("borrows", borrowService.findBorrowByUserId("ALL",userId));
+        model.addAttribute("totalBorrows", "Total borrows: " + borrowService.findBorrowByUserId("ALL",userId).size());
         model.addAttribute("userId", userId);
 
         return "borrow/borrows";

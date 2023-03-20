@@ -135,7 +135,7 @@ public class Utils {
         //System.out.println(books.size());
     }
 
-    public static void populateFakeBorrows(int i, HashMap<String, Borrow> borrows) {
+    public static void populateFakeBorrows(int qty, HashMap<String, Borrow> borrows) {
 
         // to-do: numb3r will be a limit, for security
         Borrow newBorrow;
@@ -159,11 +159,14 @@ public class Utils {
             }
         }
 
-        Optional<User> optionalUser = users.values().stream().findFirst();
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+        //Optional<User> optionalUser = users.values().stream().findFirst();
+        //if (optionalUser.isPresent()) {}
+        //    User user = optionalUser.get();
+        for (User user : users.values()) {
+            int i = 0;
             for (Book book : books.values()) {
                 //
+
                 newBorrow = new Borrow();
                 String newBorrowId = Utils.createUUID();
                 //
@@ -172,10 +175,13 @@ public class Utils {
                 newBorrow.setBorrowId(newBorrowId);
                 newBorrow.setInitialBorrow(new Date());
                 newBorrow.setDueDate(new Date());
-                newBorrow.setBorrowStatus("PROGRESS");
+                if (i % 2 == 0 ) newBorrow.setBorrowStatus("PROGRESS");
+                else newBorrow.setBorrowStatus("DELAYED");
 
                 borrows.put(newBorrowId, newBorrow);
                 newBorrow = null;
+                i++;
+                if (i == 20) break;
             }
         }
 

@@ -27,17 +27,29 @@ public class BorrowService {
         return borrows;
     }
 
-    public HashMap<String, Borrow> findBorrowByUserId(String userid) {
+    public HashMap<String, Borrow> findBorrowByUserId(String query, String userid) {
         //
         HashMap<String, Borrow> borrowsByUser = new HashMap<>();
         for (Borrow borrow : borrows.values()) {
             //
             String userIdFromBorrow = borrow.getUser().getUserId();
             boolean userIdCheck = userIdFromBorrow.equals(userid);
-            boolean statusCheck = borrow.getBorrowStatus().equals("PROGRESS");
-            //
-            if (userIdCheck && statusCheck) {
-                borrowsByUser.put(borrow.getBorrowId(), borrow);
+            switch (query) {
+                case "ACTIVE":
+                    boolean ProgressStatusCheck = borrow.getBorrowStatus().equals("PROGRESS");
+                    boolean DelayedStatusCheck = borrow.getBorrowStatus().equals("DELAYED");
+                    if (userIdCheck && (ProgressStatusCheck || DelayedStatusCheck)) {
+                        borrowsByUser.put(borrow.getBorrowId(), borrow);
+                    }
+                    break;
+                    //
+                case "ALL":
+                    if (userIdCheck) {
+                        borrowsByUser.put(borrow.getBorrowId(), borrow);
+                    }
+                    break;
+                default:
+                    String error = "";
             }
         }
 

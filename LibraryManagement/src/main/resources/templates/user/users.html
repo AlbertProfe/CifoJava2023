@@ -26,8 +26,8 @@
         <td><a th:href="@{packedUserForm(idFromView=${user.value.userId})}">Update</a></td>
         <td><a th:href="@{detailUser(idFromView=${user.value.userId})}">Detail</a></td>
         <td><a th:href="@{books(idFromView=${user.value.userId})}">Borrow</a></td>
-        <td><a th:href="@{/borrow/findBorrowByUserId(idFromView=${user.value.userId})}">Borrows</a></td>
-        <td>All Borrows</td>
+        <td><a th:href="@{/borrow/findActiveBorrowByUserId(idFromView=${user.value.userId})}">Borrows</a></td>
+        <td><a th:href="@{/borrow/findAllBorrowByUserId(idFromView=${user.value.userId})}">All Borrows</a></td>
         <td>Suspend</td>
     </tr>
 </table>
