@@ -24,21 +24,32 @@ public class HomeController {
 
     @RequestMapping({"/","/login"})
     public String getLogin(Model model, HttpSession session) {
+        // to fake a login we need all Librarian and Users
         model.addAttribute("users", userService.getAllUsers().values());
         model.addAttribute("librarians", librarianService.getAllLibrarians().values());
 
-        if ( session.getAttribute("isLogin") == null ) session.setAttribute("isLogin", false);
+        // default site to load when request is done
+        // it load login/login.html with a conditional render
+        // upon session.isLogin
+        // first time we CREATE the variable and isLogin = false
+        if ( session.getAttribute("isLogin") == null )
+            session.setAttribute("isLogin", false);
         return "login/login";
     }
 
     @RequestMapping("/home")
     public String getHome(Model model, HttpSession session) {
+        // we need a GET home endpoint to render home when request is done
+        // whenever and wherever is done if it does NOT come from a
+        // POST request from LOG IN
         session.setAttribute("requestCount", getRequestCount(session));
         return "home";
     }
 
     @RequestMapping("/logout")
     public String logout(Model model, HttpSession session) {
+        // ee invalidate session and redirect to login.html
+        // login.html is our default site
         session.invalidate();
         return "redirect:login";
     }
@@ -51,6 +62,14 @@ public class HomeController {
 
         session.setAttribute("requestCount", getRequestCount(session));
 
+        // the first time, the fake login POST with isLogin = false
+        // will comply the condition, so (1) we will create all variables
+        // (2) it will be redirected to home and
+        // (3) isLogin = true
+        // NEXT POST attempt to re-login will fail the condition,
+        // and it will be redirected to LOG IN where the
+        // conditional RENDER will show a LOGOUT because
+        // isLogin = true
         if (!((boolean) session.getAttribute("isLogin"))) {
             this.sessionIds.add(session.getId());
 

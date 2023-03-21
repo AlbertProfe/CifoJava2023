@@ -56,7 +56,6 @@ public class BorrowService {
         return borrowsByUser;
     }
 
-
     public String createBorrow(String userId, List<String> selectedBooksIds) {
 
         Date dueDate =  new Date();
