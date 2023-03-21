@@ -39,7 +39,7 @@
         <td>Delete</td>
         <td>Detail</td>
         <td>Update</td>
-        <td>Return book</td>
+        <td><a th:href="@{returnBook(idFromView=${borrow.value.borrowId})}">Return book</a></td>
         <td>Renovation</td>
     </tr>
 </table>

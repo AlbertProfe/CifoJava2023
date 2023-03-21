@@ -34,7 +34,7 @@
             </p>
 
         </div>
-            <div th:unless="${session.isLogin}">
+        <div th:unless="${session.isLogin}">
                 <h4>Please Log in: choose rol</h4>
                 <form   th:action="@{/home}"
                         method="post">

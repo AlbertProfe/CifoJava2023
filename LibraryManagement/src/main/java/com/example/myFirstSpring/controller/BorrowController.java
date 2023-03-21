@@ -53,4 +53,15 @@ public class BorrowController {
         return "";
     }
 
+    @RequestMapping("/returnBook")
+    public String returnBookByBorrowId(Model model,
+                                       @RequestParam("idFromView") String borrowId){
+
+        String returnedBookStatus = borrowService.returnBookByBorrowId(borrowId);
+        String userIdFound = borrowService.findUserIdByBorrowId(borrowId);
+
+        return "redirect:findActiveBorrowByUserId" + "?idFromView=" + userIdFound;
+    }
 }
+
+
