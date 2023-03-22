@@ -1,20 +1,29 @@
 package com.example.myFirstSpring.controller;
 
+import com.example.myFirstSpring.model.User;
 import com.example.myFirstSpring.service.BookService;
 import com.example.myFirstSpring.service.BorrowService;
+import com.example.myFirstSpring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/borrow")
 public class BorrowController {
     @Autowired
     BorrowService borrowService;
-
-
+    @Autowired
+    BookService bookService;
+    @Autowired
+    UserService userService;
     @RequestMapping("/borrows")
     public String getAllUsers(Model model){
         // fetch all users, add to model
@@ -44,15 +53,29 @@ public class BorrowController {
     }
 
 
-    @RequestMapping("/createBorrow")
-    public String createBorrowByUserId(Model model,
-                                       @RequestParam("idFromView") String userId){
+    @RequestMapping ("/createBorrow")
+    public String createBorrowByUserId(Model model){
+        model.addAttribute("users", userService.getAllUsers().values());
+        model.addAttribute("books",bookService.getAllBooks() );
 
-        // to-do
-
-        return "";
+        return "borrow/createBorrow";
     }
+    @RequestMapping ("/createBorrowByUserIdAndBookIds")
+    public String createBorrowByUserId(Model model,
+                                       @RequestParam("selectedBooks") List<String> bookIds,
+                                       @RequestParam("userIdFromSelect") String userId){
 
+        User userFound = userService.findUserById(userId);
+
+        String borrowDataConfirmation = borrowService.createBorrow(userId, bookIds);
+
+        model.addAttribute("user", userFound);
+        model.addAttribute("bookIds", bookIds);
+
+        model.addAttribute("borrowDataConfirmation", borrowDataConfirmation);
+
+        return "user/borrowConfirmation";
+    }
     @RequestMapping("/returnBook")
     public String returnBookByBorrowId(Model model,
                                        @RequestParam("idFromView") String borrowId){

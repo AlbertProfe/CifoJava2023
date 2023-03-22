@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Borrow Domain</title>
+</head>
+<body>
+
+<h4>Borrow Domain: books to select and userId to create a borrow</h4>
+<p th:text=" ${todayDate} "  >  </p>
+
+
+<form th:action="@{/borrow/createBorrowByUserIdAndBookIds}"  >
+    <p> <input type="submit" value="Send"></p>
+    <p> Select user:
+    <select id="userSelection" name="userIdFromSelect">
+        <option>No user selected</option>
+        <option th:each="user : ${users}"
+                th:value="${user.userId}"
+                th:text="${user.name + '-' + user.userId}"
+        > User </option>
+    </select>
+    </p>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for titles.." title="Type in a title">
+
+    <table id="myTable">
+        <tr th:each = " book:${books}">
+
+            <td th:text="${book.value.title}"> </td>
+            <td><input type="checkbox" name="selectedBooks" th:value="${book.value.bookId}"/></td>
+            <td th:text="${book.value.bookId}"> </td>
+            <td th:text="${book.value.publishedYear}"> </td>
+            <td th:text="${book.value.author}"> </td>
+            <td th:text="${book.value.pages}"> </td>
+            <td th:text="${book.value.isbn}"> </td>
+        </tr>
+    </table>
+    <p> <input type="submit" value="Send"></p>
+</form>
+
+<p>
+    <a th:href="@{/home}">Home</a>
+</p>
+<p>
+    <a th:href="@{/borrow/borrows}"> Go to borrows domain</a>
+</p>
+<p>
+    <a th:href="@{/user/users}"> Go to user domain</a>
+</p>
+
+</body>
+</html>
