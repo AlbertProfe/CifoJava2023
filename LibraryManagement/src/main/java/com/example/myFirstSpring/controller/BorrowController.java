@@ -24,8 +24,9 @@ public class BorrowController {
     BookService bookService;
     @Autowired
     UserService userService;
+
     @RequestMapping("/borrows")
-    public String getAllUsers(Model model){
+    public String getAllBorrows(Model model){
         // fetch all users, add to model
         model.addAttribute("borrows", borrowService.getAllBorrows());
         model.addAttribute("totalBorrows", "Total borrows: " + borrowService.getAllBorrows().size());
@@ -52,7 +53,6 @@ public class BorrowController {
         return "borrow/borrows";
     }
 
-
     @RequestMapping ("/createBorrow")
     public String createBorrowByUserId(Model model){
         model.addAttribute("users", userService.getAllUsers().values());
@@ -60,8 +60,9 @@ public class BorrowController {
 
         return "borrow/createBorrow";
     }
+
     @RequestMapping ("/createBorrowByUserIdAndBookIds")
-    public String createBorrowByUserId(Model model,
+    public String createBorrowByUserIdAndBookIds(Model model,
                                        @RequestParam("selectedBooks") List<String> bookIds,
                                        @RequestParam("userIdFromSelect") String userId){
 
