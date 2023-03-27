@@ -23,4 +23,16 @@ public class BookService {
     }
 
 
+    public Book deleteBook(String id) {
+
+
+        Book bookToDelete = findBookById(id);
+
+        if (bookToDelete != null){
+            books.remove(id);
+            return  bookToDelete;}
+        else return null;
+
+
+    }
 }
