@@ -5,6 +5,9 @@ package com.example.myFirstSpring.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+
 
 @Data // generates getters, setters, equals, hashCode, and toString methods
 @NoArgsConstructor // generates a no-args constructor
@@ -18,11 +21,35 @@ public class Book {
     private String title;
 
     private String author;
+
     private int pages;
 
     private int publishedYear;
 
     private String isbn;
+
+    public void update(Book other) {
+        Class<?> clazz = getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        Arrays.stream(fields)
+                .filter(field -> {
+                    try {
+                        Object value = field.get(other);
+                        return value != null &&
+                                (!(value instanceof Number) || ((Number) value).intValue() != 0) &&
+                                (!(value instanceof Boolean) || (Boolean) value);
+                    } catch (IllegalAccessException e) {
+                        return false;
+                    }
+                })
+                .forEach(field -> {
+                    try {
+                        field.set(this, field.get(other));
+                    } catch (IllegalAccessException e) {
+                        // Handle exception
+                    }
+                });
+    }
 
     @Override
     public String toString() {

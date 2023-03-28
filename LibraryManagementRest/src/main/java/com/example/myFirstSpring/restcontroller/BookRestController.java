@@ -29,10 +29,20 @@ public class BookRestController {
         return "Book created.\nBook:" + book.toString();
     }
 
-    public String updateBook (){
 
-        return "";
+    @PutMapping("/updateBook/{id}")
+    public String updateBook (@PathVariable String id, @RequestBody Book dataBook) {
+
+
+           Book bookUpdated = bookService.updateBook(id,dataBook);
+
+        if (bookUpdated != null)
+            return "Book updated by Service properly.\nBook updated: " + bookUpdated.toString();
+            else return "error 418";
+
     }
+
+
     @DeleteMapping("/deleteBook")
     public String deleteBook (@RequestParam("id") String id){
 
