@@ -56,21 +56,24 @@ public class BorrowService {
         return borrowsByUser;
     }
 
-    public String createBorrow(String userId, List<String> selectedBooksIds) {
+    public Borrow createBorrow(String userId, List<String> selectedBooksIds) {
 
+        Borrow newBorrow = new Borrow();
         Date dueDate =  new Date();
         List<String> borrowsId = new ArrayList<String>();
 
         for (String bookId : selectedBooksIds){
-            Borrow newBorrow = new Borrow();
+
 
             Book book = bookService.findBookById(bookId);
             if (book != null) newBorrow.setBook(book);
-            else return "Book not found: " + bookId +  " Borrow cancelled";
+            //else return "Book not found: " + bookId +  " Borrow cancelled";
+            else return null;
 
             User user = userService.findUserById(userId);
             if (user != null) newBorrow.setUser(user);
-            else return "User not found. Borrow cancelled";
+            //else return "User not found. Borrow cancelled";
+            else return null;
 
             Date initialBorrowDate = new Date();
             newBorrow.setInitialBorrow(initialBorrowDate);
@@ -87,9 +90,9 @@ public class BorrowService {
 
         }
 
-        return "Your borrow is ok.\n Due Date: " + dueDate.toString() +
-                "\n Borrow ticket: " + borrowsId.toString() ;
-
+        /*return "Your borrow is ok.\n Due Date: " + dueDate.toString() +
+                "\n Borrow ticket: " + borrowsId.toString() ;*/
+        return newBorrow;
     }
 
     public String returnBookByBorrowId(String borrowId) {

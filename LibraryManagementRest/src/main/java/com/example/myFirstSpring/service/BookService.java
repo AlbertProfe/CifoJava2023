@@ -25,7 +25,6 @@ public class BookService {
 
     public Book deleteBook(String id) {
 
-
         Book bookToDelete = findBookById(id);
 
         if (bookToDelete != null){
@@ -34,5 +33,16 @@ public class BookService {
         else return null;
 
 
+    }
+
+    public Book createBook(Book book) {
+
+        String bookId = Utils.createUUID();
+        book.setBookId(bookId);
+
+        books.put(bookId, book);
+
+
+        return book;
     }
 }

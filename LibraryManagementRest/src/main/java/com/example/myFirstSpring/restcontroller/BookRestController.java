@@ -20,8 +20,21 @@ public class BookRestController {
       return bookService.getAllBooks();
 
     }
+
+    @PostMapping("/createBook")
+    public String createBook (@RequestBody Book book){
+
+        Book bookToCreate = bookService.createBook(book);
+
+        return "Book created.\nBook:" + book.toString();
+    }
+
+    public String updateBook (){
+
+        return "";
+    }
     @DeleteMapping("/deleteBook")
-    public String deletebook (@RequestParam("id") String id){
+    public String deleteBook (@RequestParam("id") String id){
 
         Book book = bookService.deleteBook(id);
 
