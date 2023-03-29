@@ -14,22 +14,22 @@ public class UserService {
     }
 
     public static void populateFakeUsers(int fakeusersnumber) {
-        Utils.populateFakeUsers(fakeusersnumber,users);
+        Utils.populateFakeUsers(fakeusersnumber, users);
     }
 
-    public  void createUser(User user) {
+    public User createUser(User user) {
 
-        String  newUserId = Utils.createUUID();
+        String newUserId = Utils.createUUID();
         user.setUserId(newUserId);
-        users.put(newUserId, user);
+        return users.put(newUserId, user);
     }
 
-    public HashMap<String, User> getAllUsers (){
+    public HashMap<String, User> getAllUsers() {
 
         return users;
     }
 
-    public User createUser(){
+    public User createUser() {
 
         User newUser = new User();
         newUser.setAddress("");
@@ -46,11 +46,16 @@ public class UserService {
         users.put(userFound.getUserId(), userFound);
     }
 
-    public void deleteUserById(String id) {
-        users.remove(id);
+    public User deleteUserById(String id) {
+       return  users.remove(id);
     }
 
-    public void createBorrow(){
+    public void createBorrow() {
 
+    }
+
+    public User updateUser(String id, User dataUser) {
+        //to do
+        return null;
     }
 }

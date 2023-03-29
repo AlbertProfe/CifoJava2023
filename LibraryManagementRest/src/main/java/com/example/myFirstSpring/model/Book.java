@@ -28,23 +28,24 @@ public class Book {
 
     private String isbn;
 
-    public void update(Book other) {
+    public void update(Book dataBook) {
         Class<?> clazz = getClass();
         Field[] fields = clazz.getDeclaredFields();
         Arrays.stream(fields)
                 .filter(field -> {
                     try {
-                        Object value = field.get(other);
+                        Object value = field.get(dataBook);
                         return value != null &&
                                 (!(value instanceof Number) || ((Number) value).intValue() != 0) &&
                                 (!(value instanceof Boolean) || (Boolean) value);
                     } catch (IllegalAccessException e) {
+                        // Handle exception
                         return false;
                     }
                 })
                 .forEach(field -> {
                     try {
-                        field.set(this, field.get(other));
+                        field.set(this, field.get(dataBook));
                     } catch (IllegalAccessException e) {
                         // Handle exception
                     }

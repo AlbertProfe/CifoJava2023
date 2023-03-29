@@ -55,4 +55,16 @@ public class BookRestController {
 
     }
 
+    @GetMapping("/findBookById")
+    public String findBookById (@RequestParam("id") String id){
+
+        return "";
+    }
+
+    @GetMapping("/findBookByTitle")
+    public String findBookByTitle (@RequestParam("id") String id){
+
+        return "";
+    }
+
 }
