@@ -4,6 +4,7 @@ import com.example.myFirstSpring.model.Book;
 import com.example.myFirstSpring.model.Borrow;
 import com.example.myFirstSpring.model.User;
 import com.github.javafaker.Faker;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import static com.example.myFirstSpring.service.BookService.books;
 import static com.example.myFirstSpring.service.UserService.users;
 
 public class Utils {
+
 
     public static String createUUID() {
 
@@ -56,6 +58,7 @@ public class Utils {
             newUser.setAge(userAge);
 
             users.put(userId, newUser);
+
 
         }
         //System.out.println(users.size());

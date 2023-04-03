@@ -21,6 +21,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/h2users")
+    public Iterable<User> getAllH2Users(){
+        return userService.getAllH2Users();
+    }
+
     @PostMapping("/createUser")
     public String createBook (@RequestBody User user){
 

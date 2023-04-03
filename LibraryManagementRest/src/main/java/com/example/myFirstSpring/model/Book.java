@@ -1,6 +1,5 @@
 package com.example.myFirstSpring.model;
 
-
 //https://projectlombok.org/features/all
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,26 +7,16 @@ import lombok.NoArgsConstructor;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-
 @Data // generates getters, setters, equals, hashCode, and toString methods
 @NoArgsConstructor // generates a no-args constructor
 @AllArgsConstructor // generates a constructor with all arguments
-
 public class Book {
-
-
     private String bookId;
-
     private String title;
-
     private String author;
-
     private int pages;
-
     private int publishedYear;
-
     private String isbn;
-
     public void update(Book dataBook) {
         Class<?> clazz = getClass();
         Field[] fields = clazz.getDeclaredFields();
@@ -51,7 +40,6 @@ public class Book {
                     }
                 });
     }
-
     @Override
     public String toString() {
         return "Book{" +

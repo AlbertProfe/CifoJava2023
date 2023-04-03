@@ -1,12 +1,17 @@
 package com.example.myFirstSpring.service;
 
 import com.example.myFirstSpring.model.User;
+import com.example.myFirstSpring.repository.UserRepository;
 import com.example.myFirstSpring.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 
 @Service
 public class UserService {
+
+    @Autowired
+    UserRepository userRepository;
     public static HashMap<String, User> users = new HashMap<>();
 
     static {
@@ -21,7 +26,11 @@ public class UserService {
 
         String newUserId = Utils.createUUID();
         user.setUserId(newUserId);
+
+        userRepository.save(user);
+
         return users.put(newUserId, user);
+
     }
 
     public HashMap<String, User> getAllUsers() {
@@ -57,5 +66,10 @@ public class UserService {
     public User updateUser(String id, User dataUser) {
         //to do
         return null;
+    }
+
+    public Iterable<User> getAllH2Users() {
+        Iterable<User> usersH2 = userRepository.findAll();
+        return usersH2;
     }
 }
