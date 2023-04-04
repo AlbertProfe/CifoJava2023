@@ -6,6 +6,7 @@ import com.example.myFirstSpring.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -22,41 +23,42 @@ public class UserService {
         Utils.populateFakeUsers(fakeusersnumber, users);
     }
 
-    public User createUser(User user) {
-
-        String newUserId = Utils.createUUID();
-        user.setUserId(newUserId);
-
-        userRepository.save(user);
-
-        return users.put(newUserId, user);
-
-    }
-
-    public HashMap<String, User> getAllUsers() {
-
+    public Iterable<User> getAllUsers() {
+        Iterable<User> users = userRepository.findAll();
         return users;
     }
+
+    public User createUser(User user) {
+        String newUserId = Utils.createUUID();
+        user.setUserId(newUserId);
+        return userRepository.save(user);
+    }
+
+
 
     public User createUser() {
 
         User newUser = new User();
         newUser.setAddress("");
-
-
         return newUser;
     }
 
-    public User findUserById(String id) {
-        return users.getOrDefault(id, null);
+    public Optional<User>  findUserById(String id) {
+
+        Optional<User> foundUser = userRepository.findById(id);
+        //users.getOrDefault(id, null);
+        return foundUser;
     }
 
     public void updateUserByUser(User userFound) {
         users.put(userFound.getUserId(), userFound);
     }
 
-    public User deleteUserById(String id) {
-       return  users.remove(id);
+    public void deleteUserById(String id) {
+        //users.remove(id);
+        userRepository.deleteById(id);
+
+
     }
 
     public void createBorrow() {
@@ -68,8 +70,5 @@ public class UserService {
         return null;
     }
 
-    public Iterable<User> getAllH2Users() {
-        Iterable<User> usersH2 = userRepository.findAll();
-        return usersH2;
-    }
+
 }

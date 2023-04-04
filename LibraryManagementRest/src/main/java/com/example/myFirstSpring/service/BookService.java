@@ -1,58 +1,92 @@
 package com.example.myFirstSpring.service;
 
 import com.example.myFirstSpring.model.Book;
+import com.example.myFirstSpring.repository.BookRepository;
 import com.example.myFirstSpring.utils.Utils;
+import com.github.javafaker.Faker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
-import java.lang.reflect.Field;
-import java.util.Arrays;
+import java.util.Optional;
+
 
 @Service
 public class BookService {
-    public static HashMap<String, Book> books = new HashMap<>();
 
-    static {
-        Utils.populateFakeBooks(200, books);
-    }
+    @Autowired
+    BookRepository bookRepository;
 
-    public HashMap<String, Book> getAllBooks (){
+    public Iterable<Book> getAllBooks() {
+
+        Iterable<Book> books = bookRepository.findAll();
 
         return books;
     }
 
-    public Book findBookById(String id) {
-        return books.getOrDefault(id, null);
-    }
-
-    public Book deleteBook(String id) {
-
-        Book bookToDelete = findBookById(id);
-
-        if (bookToDelete != null){
-            books.remove(id);
-            return  bookToDelete;}
-        else return null;
-
-    }
-
     public Book createBook(Book book) {
 
-        String bookId = Utils.createUUID();
-        book.setBookId(bookId);
+        Book bookCreated = bookRepository.save(book);
 
-        return books.put(bookId, book);
+        return bookCreated;
     }
 
-    public Book updateBook (String bookId, Book dataBook){
+    public Optional<Book> findBookById(String id) {
 
-        Book bookToUpdate = findBookById(bookId);
+        return bookRepository.findById(id);
+    }
 
-        if (bookToUpdate != null)  {
-            bookToUpdate.update(dataBook);
-            return  books.replace(bookId, bookToUpdate);
+    public Optional<Book> findBookByTitle(String title) {
+        //return bookRepository.findBookByTitle(title);
+        return null;
+    }
+
+    public Book deleteBookByTitle(String title) {
+        //Find out IF this id-book IS in our DB
+        //Optional<Book> deletedBook = bookRepository.deleteBookByTitle(title);
+        //
+        return null;
+    }
+
+    public void deleteBookById(String id) {
+        bookRepository.deleteById(id);
+    }
+
+    public Book updateBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+    public  HashMap<String, Book> populateFakeBooks(int number) {
+        HashMap<String, Book> fakeBooks = new HashMap<>();
+        Faker faker = new Faker();
+        Book newBook;
+
+        for (int i = 0; i < number; i++) {
+
+            newBook = new Book();
+
+            String bookId = Utils.createUUID();
+            newBook.setBookId(bookId);
+
+            String title = faker.book().title();
+            newBook.setTitle(title);
+
+            String isbn = Utils.createISBN();
+            newBook.setIsbn(isbn);
+
+            String author = faker.book().author();
+            newBook.setAuthor(author);
+
+
+            int pages = faker.number().numberBetween(250, 999);
+            newBook.setPages(pages);
+
+            int publishedYear = faker.number().numberBetween(1800, 2020);
+            newBook.setPublishedYear(publishedYear);
+
+            bookRepository.save(newBook);
+            fakeBooks.put(bookId,newBook);
         }
-        else return null;
-
+        return fakeBooks;
     }
-
 }
+

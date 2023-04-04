@@ -11,7 +11,7 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-import static com.example.myFirstSpring.service.BookService.books;
+//import static com.example.myFirstSpring.service.BookService.books;
 import static com.example.myFirstSpring.service.UserService.users;
 
 public class Utils {
@@ -99,7 +99,7 @@ public class Utils {
         //System.out.println(books.size());
     }
 
-    public static void populateFakeBorrows(int qty, HashMap<String, Borrow> borrows) {
+    /*public static void populateFakeBorrows(int qty, HashMap<String, Borrow> borrows) {
 
         // to-do: numb3r will be a limit, for security
         Borrow newBorrow;
@@ -150,6 +150,6 @@ public class Utils {
         }
 
 
-    }
+    }*/
 
 }

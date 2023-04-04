@@ -1,29 +1,23 @@
 package com.example.myFirstSpring.restcontroller;
 
-import com.example.myFirstSpring.model.Book;
-import com.example.myFirstSpring.model.Borrow;
 import com.example.myFirstSpring.model.User;
 import com.example.myFirstSpring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
+public class UserRestController {
 
     @Autowired
     UserService userService;
 
     @GetMapping("/users")
-    public HashMap<String, User> getAllUsers(){
+    public Iterable<User> getAllUsers(){
         return userService.getAllUsers();
-    }
-
-    @GetMapping("/h2users")
-    public Iterable<User> getAllH2Users(){
-        return userService.getAllH2Users();
     }
 
     @PostMapping("/createUser")
@@ -48,13 +42,22 @@ public class UserController {
 
 
     @DeleteMapping("/deleteUser")
-    public String deleteUser (@RequestParam("id") String id){
+    public ResponseEntity<User> deleteUser (@RequestParam("id") String id){
+        //
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("operation","deleteBook");
+        headers.add("version","api 1.0");
 
-        User user = userService.deleteUserById(id);
-
-        if (user != null){
-            return "User deleted by Service properly.\nUser deleted: " + user.toString();
-        } else return "error 418";
+        Optional<User> userFound  = userService.findUserById(id);
+        boolean isUser = userFound.isPresent();
+        if(isUser) {
+            //Optional<Book> deletedBook = bookservice.deleteBookById(id);
+            userService.deleteUserById(id);
+            headers.add("operationStatus","deleted");
+            return  ResponseEntity.accepted().headers(headers).body(userFound.get());
+        } else {
+            headers.add("operationStatus","not found");
+            return ResponseEntity.accepted().headers(headers).body(null);}
 
 
     }

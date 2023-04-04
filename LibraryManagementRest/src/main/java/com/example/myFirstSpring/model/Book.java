@@ -1,6 +1,9 @@
 package com.example.myFirstSpring.model;
 
 //https://projectlombok.org/features/all
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +13,10 @@ import java.util.Arrays;
 @Data // generates getters, setters, equals, hashCode, and toString methods
 @NoArgsConstructor // generates a no-args constructor
 @AllArgsConstructor // generates a constructor with all arguments
+@Entity(name="Book")
+@Table(name="BOOK_TABLE")
 public class Book {
+    @Id
     private String bookId;
     private String title;
     private String author;

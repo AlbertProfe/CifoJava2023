@@ -1,3 +1,4 @@
+/*
 package com.example.myFirstSpring.service;
 
 import com.example.myFirstSpring.model.Book;
@@ -70,8 +71,8 @@ public class BorrowService {
             //else return "Book not found: " + bookId +  " Borrow cancelled";
             else return null;
 
-            User user = userService.findUserById(userId);
-            if (user != null) newBorrow.setUser(user);
+            Optional<User> user = userService.findUserById(userId);
+            if (user.isPresent()) newBorrow.setUser(user.get());
             //else return "User not found. Borrow cancelled";
             else return null;
 
@@ -90,8 +91,10 @@ public class BorrowService {
 
         }
 
-        /*return "Your borrow is ok.\n Due Date: " + dueDate.toString() +
-                "\n Borrow ticket: " + borrowsId.toString() ;*/
+        */
+/*return "Your borrow is ok.\n Due Date: " + dueDate.toString() +
+                "\n Borrow ticket: " + borrowsId.toString() ;*//*
+
         return newBorrow;
     }
 
@@ -120,3 +123,4 @@ public class BorrowService {
 
 
 
+*/

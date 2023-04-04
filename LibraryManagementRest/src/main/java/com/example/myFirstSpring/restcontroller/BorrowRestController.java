@@ -1,3 +1,4 @@
+/*
 package com.example.myFirstSpring.restcontroller;
 
 import com.example.myFirstSpring.model.Book;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/borrow")
-public class BorrowController {
+public class BorrowRestController {
 
     @Autowired
     BorrowService borrowService;
@@ -38,3 +39,4 @@ public class BorrowController {
         return null;
     }
 }
+*/
