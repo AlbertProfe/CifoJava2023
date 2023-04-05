@@ -1,4 +1,3 @@
-/*
 package com.example.myFirstSpring.restcontroller;
 
 import com.example.myFirstSpring.model.Book;
@@ -6,6 +5,8 @@ import com.example.myFirstSpring.model.Borrow;
 import com.example.myFirstSpring.service.BookService;
 import com.example.myFirstSpring.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,17 +19,55 @@ public class BorrowRestController {
     @Autowired
     BorrowService borrowService;
 
-    @GetMapping("/borrows")
-    public HashMap<String, Borrow> getAllBorrows(){
-        return borrowService.getAllBorrows();
+    @GetMapping("populate")
+    public ResponseEntity<List<Borrow>> populate(@RequestParam("qty") int qty) {
+        //
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("operation", "populate");
+        headers.add("version", "api 1.0");
+
+        List<Borrow> fakeBorrows = borrowService.populateFakeBorrows(qty);
+
+        if (fakeBorrows.size() > 0 ) {
+            headers.add("statusOperation", "success");
+            return ResponseEntity.accepted().headers(headers).body(fakeBorrows);
+        } else {
+            headers.add("statusOperation", "not populated");
+            return ResponseEntity.accepted().body(null);
+        }
     }
+
+    @GetMapping("/borrows")
+    public  ResponseEntity<Iterable<Borrow>> getAllBorrows(){
+        //
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("operation", "getAllBorrows");
+        headers.add("version", "api 1.0");
+        headers.add("statusOperation", "success");
+
+        return ResponseEntity.accepted().headers(headers).body(borrowService.getAllBorrows());
+    }
+
+
+
     @GetMapping("/createBorrow")
-    public Borrow createBorrow (@RequestParam("userId") String userId ,
+    public ResponseEntity<String> createBorrow (@RequestParam("userId") String userId ,
                                 @RequestParam("bookIds") List<String> bookIds){
 
-        Borrow borrow = borrowService.createBorrow(userId, bookIds);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("operation", "createBorrow");
+        headers.add("version", "api 1.0");
 
-        return  borrow;
+        HashMap<String, String> createdBorrows = borrowService.createBorrow(userId, bookIds);
+
+        if ( createdBorrows.get("status").equals("fail") ) {
+            headers.add("statusOperation", "fail");
+            return ResponseEntity.accepted().headers(headers).body(createdBorrows.get("statusDescription"));
+        } else {
+            headers.add("statusOperation", "success");
+            return ResponseEntity.accepted().headers(headers).body(createdBorrows.get("statusDescription"));
+        }
+
     }
 
     @GetMapping("/returnBorrow")
@@ -39,4 +78,3 @@ public class BorrowRestController {
         return null;
     }
 }
-*/

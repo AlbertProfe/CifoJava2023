@@ -1,11 +1,8 @@
 package com.example.myFirstSpring.utils;
 
 import com.example.myFirstSpring.model.Book;
-import com.example.myFirstSpring.model.Borrow;
 import com.example.myFirstSpring.model.User;
 import com.github.javafaker.Faker;
-
-import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;

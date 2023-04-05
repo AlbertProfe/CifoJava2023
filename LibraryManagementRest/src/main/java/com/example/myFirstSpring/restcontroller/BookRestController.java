@@ -17,7 +17,7 @@ public class BookRestController {
     BookService bookService;
 
     @GetMapping("populate")
-    public ResponseEntity<HashMap<String, Book> > findBookById(@RequestParam("qty") int qty) {
+    public ResponseEntity<HashMap<String, Book> > populate(@RequestParam("qty") int qty) {
         //
         HttpHeaders headers = new HttpHeaders();
         headers.add("operation", "populate");
@@ -137,7 +137,7 @@ public class BookRestController {
         headers.add("version", "api 1.0");
 
         //findBookByTitle(String title)
-        //deleteBookByTitle(String title)
+        //deleteBookByTitle(S   tring title)
 
         return null;
 
