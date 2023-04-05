@@ -111,6 +111,17 @@ public class BorrowService {
         }
         return borrows;
     }
+
+
+    public boolean returnBookByBorrowId(String borrowId) {
+
+        Optional<Borrow> borrowFound = borrowRepository.findById(borrowId);
+
+        if (borrowFound.isPresent()) {
+            borrowFound.get().setBorrowStatus("CLOSED");
+            return true;
+        } else return false;
+    }
 }
 
 /*public Borrow createBorrow(String userId, List<String> selectedBooksIds) {

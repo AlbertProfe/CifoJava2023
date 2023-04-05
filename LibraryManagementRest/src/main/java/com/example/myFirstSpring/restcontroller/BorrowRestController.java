@@ -1,14 +1,11 @@
 package com.example.myFirstSpring.restcontroller;
 
-import com.example.myFirstSpring.model.Book;
 import com.example.myFirstSpring.model.Borrow;
-import com.example.myFirstSpring.service.BookService;
 import com.example.myFirstSpring.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -71,10 +68,19 @@ public class BorrowRestController {
     }
 
     @GetMapping("/returnBorrow")
-    public Borrow returnBook (@RequestParam("borrowId") String borrowId){
+    public ResponseEntity<String> returnBook (@RequestParam("borrowId") String borrowId){
 
-        //borrowService.returnBookByBorrowId();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("operation", "returnBook");
+        headers.add("version", "api 1.0");
 
-        return null;
+        boolean returned = borrowService.returnBookByBorrowId(borrowId);
+
+        if ( returned ) {
+
+            return ResponseEntity.accepted().headers(headers).body(borrowId + " > closed borrow");
+        } else {
+            return ResponseEntity.accepted().headers(headers).body(null);
+        }
     }
 }
