@@ -19,19 +19,16 @@ public class BookService {
     public Iterable<Book> getAllBooks() {
 
         Iterable<Book> books = bookRepository.findAll();
-
         return books;
     }
 
     public Book createBook(Book book) {
 
         Book bookCreated = bookRepository.save(book);
-
         return bookCreated;
     }
 
     public Optional<Book> findBookById(String id) {
-
         return bookRepository.findById(id);
     }
 
@@ -51,8 +48,9 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public Book updateBook(Book book) {
-        return bookRepository.save(book);
+    public Book updateBook(Book bookToUpdate, Book dataBook) {
+        bookToUpdate.update(dataBook);
+        return bookRepository.save(bookToUpdate);
     }
 
     public  HashMap<String, Book> populateFakeBooks(int number) {

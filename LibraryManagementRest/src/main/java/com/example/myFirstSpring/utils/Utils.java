@@ -9,10 +9,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
-
-
 //import static com.example.myFirstSpring.service.BookService.books;
-import static com.example.myFirstSpring.service.UserService.users;
+//import static com.example.myFirstSpring.service.UserService.users;
 
 public class Utils {
 

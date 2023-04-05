@@ -14,7 +14,7 @@ import java.util.Optional;
 public class BookRestController {
     //here we are creating our end-point rest API
     @Autowired
-    BookService bookservice;
+    BookService bookService;
 
     @GetMapping("populate")
     public ResponseEntity<HashMap<String, Book> > findBookById(@RequestParam("qty") int qty) {
@@ -23,7 +23,7 @@ public class BookRestController {
         headers.add("operation", "populate");
         headers.add("version", "api 1.0");
 
-        HashMap<String, Book> fakeBooks = bookservice.populateFakeBooks(qty);
+        HashMap<String, Book> fakeBooks = bookService.populateFakeBooks(qty);
 
         if (fakeBooks.size() > 0 ) {
             headers.add("statusOperation", "success");
@@ -33,6 +33,7 @@ public class BookRestController {
             return ResponseEntity.accepted().body(null);
         }
     }
+
     //CRUD: read
     @GetMapping("books")
     public ResponseEntity<Iterable<Book>> getAllBooks() {
@@ -42,7 +43,7 @@ public class BookRestController {
         headers.add("version", "api 1.0");
         headers.add("statusOperation", "success");
 
-        return ResponseEntity.accepted().headers(headers).body(bookservice.getAllBooks());
+        return ResponseEntity.accepted().headers(headers).body(bookService.getAllBooks());
     }
 
     //CRUD: read, find one book by id
@@ -53,7 +54,7 @@ public class BookRestController {
         headers.add("operation", "findBookById");
         headers.add("version", "api 1.0");
 
-        Optional<Book> bookFound = bookservice.findBookById(id);
+        Optional<Book> bookFound = bookService.findBookById(id);
         if (bookFound.isPresent()) {
             headers.add("statusOperation", "success");
             return ResponseEntity.accepted().headers(headers).body(bookFound.get());
@@ -72,7 +73,7 @@ public class BookRestController {
         headers.add("version", "api 1.0");
         headers.add("statusOperation", "success");
 
-        Book bookCreated = bookservice.createBook(book);
+        Book bookCreated = bookService.createBook(book);
 
         if (bookCreated != null) {
             headers.add("statusOperation", "success");
@@ -91,11 +92,11 @@ public class BookRestController {
         headers.add("operation", "deleteBook");
         headers.add("version", "api 1.0");
 
-        Optional<Book> bookFound = bookservice.findBookById(id);
+        Optional<Book> bookFound = bookService.findBookById(id);
         boolean isBook = bookFound.isPresent();
         if (isBook) {
             //Optional<Book> deletedBook = bookservice.deleteBookById(id);
-            bookservice.deleteBookById(id);
+            bookService.deleteBookById(id);
             headers.add("operationStatus", "deleted");
             return ResponseEntity.accepted().headers(headers).body(bookFound.get());
         } else {
@@ -109,22 +110,21 @@ public class BookRestController {
     @PutMapping("/updateBook/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable String id, @RequestBody Book dataBook) {
 
-    HttpHeaders headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.add("operation", "updateBook");
         headers.add("version", "api 1.0");
-        Optional<Book> bookFound = bookservice.findBookById(id);
 
-        if (bookFound.isPresent()) {
-            Book bookToUpdate = bookFound.get();
-            //
-            if (dataBook.getTitle() != null) {
-                bookToUpdate.setTitle(dataBook.getTitle());
-            }
+        Optional<Book> bookFound = bookService.findBookById(id);
 
-            Book bookUpdated = bookservice.updateBook(bookToUpdate);
-            return ResponseEntity.accepted().headers(headers).body(bookUpdated);
-        } else
-            return ResponseEntity.accepted().body(null);
+
+        if (bookFound.isPresent()){
+            bookService.updateBook(bookFound.get(), dataBook);
+            headers.add("operationStatus","updated");
+            return  ResponseEntity.accepted().headers(headers).body(bookFound.get());
+        } else {
+            headers.add("operationStatus","not found");
+            return ResponseEntity.accepted().headers(headers).body(null);}
+
 
     }
 
