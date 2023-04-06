@@ -66,13 +66,19 @@ public class UserService {
 
             int userAge = faker.number().numberBetween(0, 100);
             newUser.setAge(userAge);
+            // be careful: it is just a PLACEHOLDER
+            //newUser.getBorrowIds().add("00000000-0000-0000-0000-00000000000");
 
             users.put(userId, newUser);
             userRepository.save(newUser);
         }
+
         return users;
         //System.out.println(users.size());
     }
 
 
+    public void addBorrowId(User user, String borrowId) {
+        user.getBorrowIds().add(borrowId);
+    }
 }

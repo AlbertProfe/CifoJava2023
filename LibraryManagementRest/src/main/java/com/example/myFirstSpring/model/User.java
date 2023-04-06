@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Data // generates getters, setters, equals, hashCode, and toString methods
 @NoArgsConstructor // generates a no-args constructor
@@ -20,6 +22,8 @@ public class User {
     private String name;
     private String address;
     private int age;
+    private List<String> borrowIds = new ArrayList<>();
+
 
     public void update(User dataUser) {
         Class<?> clazz = getClass();

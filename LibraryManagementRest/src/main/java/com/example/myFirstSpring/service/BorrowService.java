@@ -54,6 +54,8 @@ public class BorrowService {
 
                 borrowRepository.save(newBorrow);
                 newBorrows.add(newBorrow);
+                userService.addBorrowId(user, newBorrowId);
+
                 i++;
                 if (i == qty) break;
             }
@@ -90,23 +92,24 @@ public class BorrowService {
                 borrows.put("status" , "fail");
                 return borrows;
             }
-
+            //
             Date initialBorrowDate = new Date();
             newBorrow.setInitialBorrow(initialBorrowDate);
-
+            //
             newBorrow.setDueDate(dueDate);
-
+            //
             newBorrow.setBorrowStatus("PROGRESS");
-
+            //
             String borrowId = Utils.createUUID();
             newBorrow.setBorrowId(borrowId);
-
 
             borrows.put(borrowId, newBorrow.toString());
             borrowsId.add(borrowId);
             borrows.put("statusDescription" , "borrowOperation success, booksIds ( " + borrowsId.size() + " ):" + borrowsId.toString());
             borrows.put("status" , "success");
             borrowRepository.save(newBorrow);
+            //
+            userService.addBorrowId(user.get(), borrowId);
 
         }
         return borrows;

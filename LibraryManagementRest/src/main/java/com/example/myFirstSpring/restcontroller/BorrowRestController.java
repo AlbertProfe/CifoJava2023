@@ -45,8 +45,6 @@ public class BorrowRestController {
         return ResponseEntity.accepted().headers(headers).body(borrowService.getAllBorrows());
     }
 
-
-
     @GetMapping("/createBorrow")
     public ResponseEntity<String> createBorrow (@RequestParam("userId") String userId ,
                                 @RequestParam("bookIds") List<String> bookIds){
@@ -59,11 +57,10 @@ public class BorrowRestController {
 
         if ( createdBorrows.get("status").equals("fail") ) {
             headers.add("statusOperation", "fail");
-            return ResponseEntity.accepted().headers(headers).body(createdBorrows.get("statusDescription"));
         } else {
             headers.add("statusOperation", "success");
-            return ResponseEntity.accepted().headers(headers).body(createdBorrows.get("statusDescription"));
         }
+        return ResponseEntity.accepted().headers(headers).body(createdBorrows.get("statusDescription"));
 
     }
 
