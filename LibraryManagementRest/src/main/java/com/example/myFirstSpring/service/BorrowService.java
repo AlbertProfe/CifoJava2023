@@ -4,6 +4,7 @@ import com.example.myFirstSpring.model.Book;
 import com.example.myFirstSpring.model.Borrow;
 import com.example.myFirstSpring.model.User;
 import com.example.myFirstSpring.repository.BorrowRepository;
+import com.example.myFirstSpring.repository.UserRepository;
 import com.example.myFirstSpring.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class BorrowService {
     BookService bookService;
     @Autowired
     BorrowRepository borrowRepository;
+    @Autowired
+    UserRepository userRepository;
 
     public Iterable<Borrow> getAllBorrows(){
         //
@@ -109,7 +112,8 @@ public class BorrowService {
             borrows.put("status" , "success");
             borrowRepository.save(newBorrow);
             //
-            userService.addBorrowId(user.get(), borrowId);
+            User userUpdated = userService.addBorrowId(user.get(), borrowId);
+            userRepository.save(userUpdated);
 
         }
         return borrows;

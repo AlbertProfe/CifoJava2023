@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Data // generates getters, setters, equals, hashCode, and toString methods
 @NoArgsConstructor // generates a no-args constructor
@@ -23,6 +25,8 @@ public class Book {
     private int pages;
     private int publishedYear;
     private String isbn;
+
+    private List<String> bookImageIds = new ArrayList<>();
     public void update(Book dataBook) {
         Class<?> clazz = getClass();
         Field[] fields = clazz.getDeclaredFields();
@@ -56,5 +60,10 @@ public class Book {
                 ", publishedYear=" + publishedYear +
                 ", isbn='" + isbn + '\'' +
                 '}';
+    }
+
+    public Book addBookImageId(String id) {
+        this.getBookImageIds().add(id);
+        return this;
     }
 }

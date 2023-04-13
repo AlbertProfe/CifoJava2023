@@ -78,7 +78,8 @@ public class UserService {
     }
 
 
-    public void addBorrowId(User user, String borrowId) {
+    public User addBorrowId(User user, String borrowId) {
         user.getBorrowIds().add(borrowId);
+        return user;
     }
 }

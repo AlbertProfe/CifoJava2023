@@ -1,5 +1,7 @@
 package com.example.myFirstSpring.restcontroller;
 
+import com.example.myFirstSpring.model.Book;
+import com.example.myFirstSpring.repository.BookRepository;
 import com.example.myFirstSpring.utils.Utils;
 import org.springframework.web.bind.annotation.*;
 import com.example.myFirstSpring.model.BookImage;
@@ -23,15 +25,31 @@ public class BookImageRestController {
 
     @Autowired
     BookImageRepository bookImageRepository;
+    @Autowired
+    BookRepository bookRepository;
+
+    @GetMapping("getAll")
+    public ResponseEntity<Iterable<BookImage>> getAll() {
+        //
+        return ResponseEntity.accepted().body(bookImageRepository.findAll());
+    }
 
     @PostMapping("upload")
-    public BookImage saveBookImage( @RequestParam String name, @RequestParam MultipartFile file) throws IOException {
+    public BookImage saveBookImage( @RequestParam String bookId, @RequestParam String name, @RequestParam MultipartFile file) throws IOException {
         BookImage bookImage  = new BookImage();
         //bookImage.setId(Utils.createUUID());
         bookImage.setName(name);
         bookImage.setImage( new Binary(file.getBytes() ));
 
-        bookImageRepository.save(bookImage);
+        Optional<Book> book = bookRepository.findById(bookId);
+        if (book.isPresent()) bookImage.setBookId(book.get().getBookId());
+        else return null;
+        //
+        BookImage bookImageSaved = bookImageRepository.save(bookImage);
+        //
+        Book bookUpdated = book.get().addBookImageId(bookImageSaved.getId());
+        bookRepository.save(bookUpdated);
+
 
         return bookImage;
 
@@ -75,8 +93,8 @@ public class BookImageRestController {
         return ResponseEntity.ok(updatedBookImage);
     }
 
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<Void> deleteBookImage(@PathVariable(value = "id") String id) {
+    @DeleteMapping("delete")
+    public ResponseEntity<Void> deleteBookImage(@RequestParam(value = "id") String id) {
         Optional<BookImage> optionalBookImage = bookImageRepository.findById(id);
         if (!optionalBookImage.isPresent()) {
             return ResponseEntity.notFound().build();
