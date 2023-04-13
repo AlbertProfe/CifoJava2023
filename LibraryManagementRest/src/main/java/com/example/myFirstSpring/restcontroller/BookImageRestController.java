@@ -57,4 +57,32 @@ public class BookImageRestController {
         return new ResponseEntity<>( bookImage.get().getImage().getData(), headers, HttpStatus.OK );
 
     }
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<BookImage> updateBookImage(@PathVariable(value = "id") String id,
+                                                     @RequestParam String name,
+                                                     @RequestParam MultipartFile file) throws IOException {
+        Optional<BookImage> optionalBookImage = bookImageRepository.findById(id);
+        if (!optionalBookImage.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        BookImage bookImage = optionalBookImage.get();
+        bookImage.setName(name);
+        bookImage.setImage(new Binary(file.getBytes()));
+        BookImage updatedBookImage = bookImageRepository.save(bookImage);
+
+        return ResponseEntity.ok(updatedBookImage);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<Void> deleteBookImage(@PathVariable(value = "id") String id) {
+        Optional<BookImage> optionalBookImage = bookImageRepository.findById(id);
+        if (!optionalBookImage.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        bookImageRepository.delete(optionalBookImage.get());
+        return ResponseEntity.ok().build();
+    }
 }
+
