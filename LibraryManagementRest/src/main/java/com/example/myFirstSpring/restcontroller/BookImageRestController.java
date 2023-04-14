@@ -35,21 +35,35 @@ public class BookImageRestController {
     }
 
     @PostMapping("upload")
-    public BookImage saveBookImage( @RequestParam String bookId, @RequestParam String name, @RequestParam MultipartFile file) throws IOException {
+    public BookImage saveBookImage( @RequestParam String bookId,
+                                    @RequestParam String name,
+                                    @RequestParam MultipartFile file) throws IOException {
         BookImage bookImage  = new BookImage();
         //bookImage.setId(Utils.createUUID());
         bookImage.setName(name);
         bookImage.setImage( new Binary(file.getBytes() ));
 
+        /*First, the code checks if the book exists in the book repository by searching for it
+        with the provided ID. If the book is not found, it returns null.
+        This avoids attempting to add an image to a book that does not exist.
+        If the book exists, the code sets the book ID for the book image, as a book
+        can have multiple images associated with it. Then, the code saves the book image
+        to the book image repository.
+        Finally, the code adds the book image ID to the book's list of image IDs and saves
+        the updated book to the book repository. This ensures that the book is updated with
+        the new image ID.*/
+
+        // Finds a book in the book repository by its ID, if present.
         Optional<Book> book = bookRepository.findById(bookId);
+        // Checks if the book exists and sets the book ID for the book image.
         if (book.isPresent()) bookImage.setBookId(book.get().getBookId());
+        // If the book doesn't exist, return null.
         else return null;
-        //
+        // Saves the book image to the book image repository.
         BookImage bookImageSaved = bookImageRepository.save(bookImage);
-        //
+        // Adds the book image ID to the book's list of image IDs and saves the updated book.
         Book bookUpdated = book.get().addBookImageId(bookImageSaved.getId());
         bookRepository.save(bookUpdated);
-
 
         return bookImage;
 
